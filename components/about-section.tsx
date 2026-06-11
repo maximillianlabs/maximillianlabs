@@ -67,7 +67,7 @@ export function AboutSection() {
                     loop
                     playsInline
                     preload="none"
-                    poster="https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/07/creativeweb-cover.png"
+                    poster={media.aboutVideoPoster}
                     className="h-full w-full object-cover"
                   >
                     <source src={media.aboutVideo} type="video/mp4" />

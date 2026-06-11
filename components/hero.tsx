@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { HeroShowreel } from "@/components/hero-showreel";
 
 function ClutchLogo() {
   return (
@@ -175,8 +174,6 @@ export function Hero() {
           Scroll Down
         </span>
       </button>
-
-      <HeroShowreel />
 
       <div
         aria-hidden="true"

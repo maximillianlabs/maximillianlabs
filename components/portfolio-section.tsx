@@ -14,8 +14,7 @@ const projects = [
     description:
       "Discover how we built a fresh, engaging, & interactive web design for Recharge, a global gift & top-up card provider, boosting user engagement & brand impact.",
     image: media.portfolio.recharge,
-    video:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/01/recharge-720p.mp4",
+    video: media.portfolio.rechargeVideo,
     awards: ["Special Kudos", "SOTD Awarded", "SOTD Awarded"],
   },
   {
@@ -24,8 +23,7 @@ const projects = [
     description:
       "We partnered with NATO Innovation Fund, a €1B deep tech venture, to create an interactive, minimalist website that reflects their innovative mission and future-focused identity.",
     image: media.portfolio.nato,
-    video:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/nato-portfolio-cover-800x600-1.mp4",
+    video: media.portfolio.natoVideo,
     awards: ["Honorable Mention", "Special Kudos", "SOTD Awarded"],
     offset: true,
   },
@@ -35,8 +33,7 @@ const projects = [
     description:
       "Explore how we revamped GreenAcres Group's website, enhancing sustainability, usability, and accessibility for their natural burial and ceremonial services.",
     image: media.portfolio.greenAcres,
-    video:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/01/GreenAcres-Portfolio-Animation-V1_720p.mp4",
+    video: media.portfolio.greenAcresVideo,
     awards: ["5.0", "SOTD Awarded", "SOTD Awarded"],
   },
   {
@@ -45,8 +42,7 @@ const projects = [
     description:
       "We partnered with Strata to redesign their website, reflecting innovation, engaging audiences, and providing a vibrant, updated presence.",
     image: media.portfolio.strata,
-    video:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/strata-square-v1.5_720p.mp4",
+    video: media.portfolio.strataVideo,
     awards: ["Honorable Mention", "SOTD Awarded", "SOTD Awarded"],
     offset: true,
   },
