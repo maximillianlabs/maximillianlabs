@@ -77,10 +77,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${kollektifSans.variable} bg-[#f4f4f5]`}
+      className={`${kollektifSans.variable} bg-[#fafafa]`}
     >
       <body
-        className={`${kollektifSans.className} font-sans font-normal antialiased bg-[#f4f4f5] text-foreground`}
+        className={`${kollektifSans.className} font-sans font-normal antialiased bg-[#fafafa] text-[#151717]`}
       >
         {children}
       </body>
