@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { FadeIn } from "@/components/fade-in";
 import { SectionLabel } from "@/components/about/section-label";
 import { media } from "@/lib/brand";
@@ -13,26 +14,30 @@ const projects = [
     description:
       "Discover how we built a fresh, engaging, & interactive web design for Recharge, a global gift & top-up card provider, boosting user engagement & brand impact.",
     image: media.portfolio.recharge,
-    awards: ["Special Kudos", "SOTD", "Awarded"],
-    offset: false,
+    video:
+      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/01/recharge-720p.mp4",
+    awards: ["Special Kudos", "SOTD Awarded", "SOTD Awarded"],
   },
   {
     title: "NATO Innovation Fund",
     tags: ["Web Design", "Web Development"],
     description:
-      "We partnered with NATO Innovation Fund, a €1B deep tech venture, to create an interactive, minimalist website that reflects their innovative mission.",
+      "We partnered with NATO Innovation Fund, a €1B deep tech venture, to create an interactive, minimalist website that reflects their innovative mission and future-focused identity.",
     image: media.portfolio.nato,
-    awards: ["Honorable Mention", "Special Kudos", "SOTD"],
+    video:
+      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/nato-portfolio-cover-800x600-1.mp4",
+    awards: ["Honorable Mention", "Special Kudos", "SOTD Awarded"],
     offset: true,
   },
   {
     title: "GreenAcres",
     tags: ["Web Design", "Web Development", "Hosting"],
     description:
-      "Explore how we revamped GreenAcres Group's website, enhancing sustainability, usability, and accessibility for their natural burial services.",
+      "Explore how we revamped GreenAcres Group's website, enhancing sustainability, usability, and accessibility for their natural burial and ceremonial services.",
     image: media.portfolio.greenAcres,
-    awards: ["5.0", "SOTD", "Awarded"],
-    offset: false,
+    video:
+      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/01/GreenAcres-Portfolio-Animation-V1_720p.mp4",
+    awards: ["5.0", "SOTD Awarded", "SOTD Awarded"],
   },
   {
     title: "Strata",
@@ -40,76 +45,122 @@ const projects = [
     description:
       "We partnered with Strata to redesign their website, reflecting innovation, engaging audiences, and providing a vibrant, updated presence.",
     image: media.portfolio.strata,
-    awards: ["Honorable Mention", "SOTD", "Awarded"],
+    video:
+      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/strata-square-v1.5_720p.mp4",
+    awards: ["Honorable Mention", "SOTD Awarded", "SOTD Awarded"],
     offset: true,
   },
 ];
 
+function WorkCard({
+  project,
+}: {
+  project: (typeof projects)[number];
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void video.play().catch(() => undefined);
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Link href="/about" className="group block">
+      <figure className="relative aspect-square overflow-hidden rounded-[var(--brand-radius)] bg-[#151717]">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-opacity duration-500 group-hover:opacity-0"
+          sizes="(max-width: 640px) 100vw, 42vw"
+        />
+        <video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          preload="none"
+          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        >
+          <source src={project.video} type="video/mp4" />
+        </video>
+        <ul className="absolute left-4 top-4 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <li
+              key={tag}
+              className="rounded-full bg-white/90 px-3 py-1 text-[0.65rem] uppercase tracking-[0.1em] text-[#151717]"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+      </figure>
+
+      <div className="mt-5 text-white">
+        <h3 className="text-xl tracking-tight md:text-2xl">{project.title}</h3>
+        <p className="mt-3 text-sm leading-relaxed text-white/70 md:text-base">
+          {project.description}
+        </p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {project.awards.map((award) => (
+            <li
+              key={award}
+              className="rounded-md border border-white/10 bg-white/5 px-3 py-2 text-[0.6rem] leading-tight text-white/70"
+            >
+              {award}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Link>
+  );
+}
+
 export function PortfolioSection() {
   return (
-    <section className="relative overflow-hidden bg-[#fafafa] section-padding">
-      <div className="container-wide mx-auto max-w-[1400px]">
+    <section className="relative overflow-hidden bg-[#151717] section-padding text-white">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-[#fe802d]/20 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#ac0bd9]/20 blur-3xl"
+      />
+
+      <div className="container-wide relative mx-auto max-w-[1400px]">
         <FadeIn>
-          <SectionLabel>What we do best</SectionLabel>
-          <h2 className="max-w-3xl text-balance text-[clamp(1.75rem,3vw+1rem,3rem)] font-normal leading-[1.12] tracking-[-0.02em] text-[#151717]">
+          <SectionLabel inverted>What we do best</SectionLabel>
+          <h2 className="mb-[max(3rem,9vw)] max-w-xl text-[clamp(1.75rem,3vw+1rem,2.75rem)] leading-[1.12] tracking-[-0.02em] md:w-5/12">
             Creating digital products &amp; experiences
           </h2>
         </FadeIn>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:mt-16 lg:gap-10">
+        <div className="flex flex-wrap justify-between gap-x-6 gap-y-12">
           {projects.map((project, index) => (
             <FadeIn
               key={project.title}
               delay={0.08 + index * 0.06}
-              className={project.offset ? "lg:mt-16" : ""}
+              className={`w-full sm:w-[calc(50%-0.75rem)] lg:w-5/12 ${
+                project.offset ? "lg:mt-16" : ""
+              }`}
             >
-              <Link
-                href="/about"
-                className="group block"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--brand-radius)] bg-[#151717]/5">
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} web design project`}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#151717]/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                </div>
-
-                <div className="mt-5">
-                  <h3 className="text-xl font-normal tracking-tight text-[#151717] transition-colors group-hover:text-[#fe0168] md:text-2xl">
-                    {project.title}
-                  </h3>
-
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs uppercase tracking-[0.15em] text-[#151717]/50"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <p className="mt-3 text-sm leading-relaxed text-[#151717]/70 md:text-base">
-                    {project.description}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.awards.map((award) => (
-                      <span
-                        key={award}
-                        className="rounded-full bg-white px-3 py-1 text-xs text-[#151717]/60 ring-1 ring-[#151717]/10"
-                      >
-                        {award}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
+              <WorkCard project={project} />
             </FadeIn>
           ))}
         </div>

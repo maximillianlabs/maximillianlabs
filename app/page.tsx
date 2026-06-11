@@ -18,10 +18,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="w-full bg-[#fafafa]">
-      <div className="relative overflow-hidden">
-        <Navbar />
-        <Hero />
-      </div>
+      <Navbar />
+      <Hero />
       <AboutSection />
       <PortfolioSection />
       <ServicesSection />
