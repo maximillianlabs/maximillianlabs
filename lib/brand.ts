@@ -72,5 +72,9 @@ export const media = {
     planningPoster: `${cbd}/2025/02/process-planning-poster.webp`,
     designing: `${cbd}/2025/02/CBD_clip_designing4_compressed.mp4`,
     designingPoster: `${cbd}/2025/02/process-designing-poster.webp`,
+    developing: `${cbd}/2025/02/CBD_clip_developing2_compressed.mp4`,
+    developingPoster: `${cbd}/2025/02/process-developing-poster.webp`,
+    testing: `${cbd}/2025/02/CBD_clip_testing2_compressedmore.mp4`,
+    testingPoster: `${cbd}/2025/02/process-testing-poster.webp`,
   },
 } as const;
