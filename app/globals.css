@@ -50,6 +50,15 @@
 }
 
 :root {
+  --brand-background: #fafafa;
+  --brand-black: #151717;
+  --brand-red: #fe0048;
+  --brand-pink: #fe0168;
+  --brand-orange: #fe802d;
+  --brand-purple: #ac0bd9;
+  --brand-lime: #c6f135;
+  --brand-gradient: linear-gradient(60deg, #fe802d, #fe0048, #ac0bd9);
+  --brand-radius: 0.75rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -173,5 +182,35 @@
   .font-extrabold,
   .font-black {
     font-weight: 400;
+  }
+
+  .text-brand-gradient {
+    background-image: var(--brand-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .section-padding {
+    padding-top: max(3rem, 9vw);
+    padding-bottom: max(3rem, 9vw);
+  }
+
+  .container-wide {
+    width: calc(100% - 3rem);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 991px) {
+    .container-wide {
+      width: calc(100% - 4.5rem);
+    }
+  }
+
+  @media (min-width: 1199px) {
+    .container-wide {
+      width: calc(100% - 6rem);
+    }
   }
 }

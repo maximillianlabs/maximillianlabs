@@ -1,48 +1,90 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { PlayCircle } from "lucide-react";
+import { Play } from "lucide-react";
+import { media } from "@/lib/brand";
 
 export function AboutSection() {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   return (
-    <section className="relative min-h-screen bg-white px-6 py-20 md:px-12 lg:px-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
-          {/* Left side - Stacked images */}
-          <div className="flex flex-col gap-6 lg:col-span-2">
-            {/* Top image placeholder */}
-            <div className="aspect-square w-full rounded-3xl bg-gray-300" />
-
-            {/* Bottom image placeholder */}
-            <div className="aspect-square w-full rounded-3xl bg-gray-300" />
-          </div>
-
-          {/* Center - Large video player */}
-          <div className="flex items-center justify-center lg:col-span-3">
-            <div className="relative w-full aspect-video rounded-3xl bg-gray-900 overflow-hidden flex items-center justify-center">
-              <button className="flex h-20 w-20 items-center justify-center rounded-full bg-white/20 transition-transform hover:scale-110">
-                <PlayCircle className="h-12 w-12 text-white" fill="white" />
-              </button>
+    <section className="relative bg-white section-padding">
+      <div className="container-wide mx-auto max-w-[1400px]">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8 xl:gap-12">
+          <div className="flex flex-col gap-4 lg:col-span-2">
+            <div className="relative aspect-square w-full overflow-hidden rounded-[var(--brand-radius)]">
+              <Image
+                src={media.aboutImageSecondary}
+                alt="Web design mockup"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 16vw"
+              />
+            </div>
+            <div className="relative aspect-square w-full overflow-hidden rounded-[var(--brand-radius)]">
+              <Image
+                src={media.aboutImagePrimary}
+                alt="London web design team"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 16vw"
+              />
             </div>
           </div>
 
-          {/* Right side - Content */}
-          <div className="flex flex-col justify-center space-y-6 lg:col-span-7">
-            {/* Badge */}
-            <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-pink-600" />
-              <p className="text-sm font-normal text-gray-700">
-                London Web Design Agency
-              </p>
+          <div className="lg:col-span-4">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--brand-radius)] bg-[#151717]">
+              {!isPlaying ? (
+                <>
+                  <Image
+                    src={media.aboutImagePrimary}
+                    alt="Agency showreel preview"
+                    fill
+                    className="object-cover opacity-80"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsPlaying(true)}
+                    className="absolute inset-0 flex items-center justify-center transition-opacity hover:opacity-90"
+                    aria-label="Play showreel"
+                  >
+                    <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform hover:scale-105 md:h-20 md:w-20">
+                      <Play
+                        className="ml-1 h-7 w-7 fill-white text-white md:h-9 md:w-9"
+                        strokeWidth={0}
+                      />
+                    </span>
+                  </button>
+                </>
+              ) : (
+                <video
+                  autoPlay
+                  controls
+                  playsInline
+                  className="h-full w-full object-cover"
+                  onEnded={() => setIsPlaying(false)}
+                >
+                  <source src={media.aboutVideo} type="video/mp4" />
+                </video>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center lg:col-span-6">
+            <div className="mb-4 inline-flex items-center gap-3 text-[clamp(0.85rem,0.7rem+0.35vw,1rem)] capitalize tracking-[0.2em] text-[#151717]/50">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-[#fe0168]" />
+              <span>London Web Design Agency</span>
             </div>
 
-            {/* Heading */}
-            <h2 className="text-4xl md:text-5xl font-normal tracking-tight">
-              Maximillian Labs<span className="text-pink-600">.</span>
+            <h2 className="text-[clamp(2rem,4vw,3.25rem)] font-normal leading-[1.1] tracking-[-0.02em] text-[#151717]">
+              Maximillian Labs<span className="text-[#fe0168]">.</span>
             </h2>
 
-            {/* Description paragraphs */}
-            <div className="space-y-5 text-base leading-relaxed text-gray-800">
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-[#151717]/80">
               <p>
                 We design unique and stunning websites for businesses and
                 enterprises worldwide, offering a personalised, hands-on
@@ -52,33 +94,21 @@ export function AboutSection() {
               <p>
                 We break the process down into easy, manageable steps, working
                 closely with you at every turn. From{" "}
-                <a
-                  href="#"
-                  className="underline hover:text-pink-600 transition-colors"
-                >
+                <Link href="#" className="underline decoration-[#151717]/30 underline-offset-2 hover:text-[#fe0168]">
                   WordPress web design
-                </a>{" "}
+                </Link>{" "}
                 and{" "}
-                <a
-                  href="#"
-                  className="underline hover:text-pink-600 transition-colors"
-                >
+                <Link href="#" className="underline decoration-[#151717]/30 underline-offset-2 hover:text-[#fe0168]">
                   interactive website design
-                </a>{" "}
+                </Link>{" "}
                 to branding,{" "}
-                <a
-                  href="#"
-                  className="underline hover:text-pink-600 transition-colors"
-                >
+                <Link href="#" className="underline decoration-[#151717]/30 underline-offset-2 hover:text-[#fe0168]">
                   SEO optimisation
-                </a>
+                </Link>
                 ,{" "}
-                <a
-                  href="#"
-                  className="underline hover:text-pink-600 transition-colors"
-                >
+                <Link href="#" className="underline decoration-[#151717]/30 underline-offset-2 hover:text-[#fe0168]">
                   multilingual web design
-                </a>{" "}
+                </Link>{" "}
                 and UI/UX, we take care of every detail to create a solution
                 that&apos;s tailored just for you.
               </p>
@@ -90,25 +120,17 @@ export function AboutSection() {
               </p>
             </div>
 
-            {/* About Us Button */}
-            <div className="pt-4">
+            <div className="mt-8">
               <Button
                 variant="outline"
-                size="lg"
-                className="border-2 border-black bg-white px-8 text-black hover:bg-gray-50"
+                asChild
+                className="h-11 rounded-[var(--brand-radius)] border border-[#151717] bg-white px-8 text-sm font-normal text-[#151717] shadow-none hover:bg-[#151717]/5 md:h-12"
               >
-                About Us
+                <Link href="/about">About Us</Link>
               </Button>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Floating Speak To Us button */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <button className="flex h-28 w-28 items-center justify-center rounded-full bg-lime-400 text-center font-normal text-black shadow-2xl transition-transform hover:scale-110">
-          <span className="text-sm leading-tight px-2">Speak To Us</span>
-        </button>
       </div>
     </section>
   );

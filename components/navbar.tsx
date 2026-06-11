@@ -236,7 +236,7 @@ export function Navbar({ variant = "light" }: NavbarProps) {
           "sticky top-0 z-40 w-full",
           isDark
             ? "bg-[#080808]/90 backdrop-blur-md"
-            : "bg-[#f4f4f5]/90 backdrop-blur-md",
+            : "bg-[#fafafa]/80 backdrop-blur-[30px]",
         )}
       >
         <header className="relative mx-auto flex w-full max-w-[1400px] items-center justify-between px-6 py-6 md:px-10 md:py-8">
