@@ -1,9 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionLabel } from "@/components/about/section-label";
 import { media } from "@/lib/brand";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type ProcessStep = {
   label: string;
@@ -118,6 +122,10 @@ const phases: ProcessPhase[] = [
   },
 ];
 
+const initialStepIndices = Object.fromEntries(
+  phases.map((phase) => [phase.id, 0]),
+) as Record<string, number>;
+
 function GalleryVideo({
   src,
   poster,
@@ -144,45 +152,192 @@ function GalleryVideo({
       playsInline
       preload="none"
       poster={poster}
-      className="h-full w-full object-cover"
+      className="h-full w-full rounded-[1.5rem] object-cover"
     >
       <source src={src} type="video/mp4" />
     </video>
   );
 }
 
-export function ProcessSection() {
-  const [activePhaseId, setActivePhaseId] = useState(phases[0].id);
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
+function ProcessNavToggle({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <li className="relative cursor-pointer pb-2">
+      <button
+        type="button"
+        onClick={onClick}
+        className={`relative text-sm font-bold transition-colors ${
+          active ? "text-[#151717]" : "text-[#151717]/40"
+        }`}
+      >
+        {label}
+        {active ? (
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-2 left-0 h-0.5 w-full bg-[#fe0168]"
+          />
+        ) : null}
+      </button>
+    </li>
+  );
+}
 
-  const activePhase =
-    phases.find((p) => p.id === activePhaseId) ?? phases[0];
+export function ProcessSection() {
+  const [activePhaseIndex, setActivePhaseIndex] = useState(0);
+  const [stepIndices, setStepIndices] =
+    useState<Record<string, number>>(initialStepIndices);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const galleryColRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const activePhase = phases[activePhaseIndex] ?? phases[0];
+  const activeStepIndex = stepIndices[activePhase.id] ?? 0;
   const activeStep = activePhase.steps[activeStepIndex] ?? activePhase.steps[0];
 
-  useEffect(() => {
-    const items = sectionRef.current?.querySelectorAll("[data-process-step]");
-    if (!items?.length) return;
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const gallery = galleryRef.current;
+    const galleryCol = galleryColRef.current;
+    const items = itemRefs.current.filter(Boolean) as HTMLDivElement[];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        const top = visible[0];
-        if (!top) return;
+    if (!section || !gallery || !galleryCol || !items.length) return;
 
-        const phaseId = top.target.getAttribute("data-phase-id");
-        const stepIndex = top.target.getAttribute("data-step-index");
-        if (phaseId) setActivePhaseId(phaseId);
-        if (stepIndex !== null) setActiveStepIndex(Number(stepIndex));
-      },
-      { rootMargin: "-30% 0px -40% 0px", threshold: [0, 0.25, 0.5] },
-    );
+    const mm = gsap.matchMedia();
 
-    items.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
+    mm.add("(min-width: 1200px)", () => {
+      const medias = gallery.querySelectorAll<HTMLElement>(".gallery-media");
+
+      medias.forEach((mediaEl, index) => {
+        gsap.set(mediaEl, { autoAlpha: index === 0 ? 1 : 0 });
+      });
+
+      const pinTrigger = ScrollTrigger.create({
+        trigger: gallery,
+        start: () => `top center-=${gallery.offsetHeight / 2}`,
+        endTrigger: galleryCol,
+        end: () => `bottom center+=${gallery.offsetHeight / 2}`,
+        pin: true,
+        invalidateOnRefresh: true,
+      });
+
+      const itemTriggers = items.map((item, index) => {
+        const enter = () => {
+          setActivePhaseIndex(index);
+          medias.forEach((mediaEl, mediaIndex) => {
+            gsap.killTweensOf(mediaEl);
+            gsap.to(mediaEl, {
+              autoAlpha: mediaIndex === index ? 1 : 0,
+              duration: 0.15,
+              ease: "none",
+            });
+          });
+        };
+
+        const fadeIn = gsap.fromTo(
+          item,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            scrollTrigger: {
+              trigger: item,
+              start: "top bottom",
+              end: "bottom 30%",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          },
+        );
+
+        const phaseTrigger = ScrollTrigger.create({
+          trigger: item,
+          start: () => `top center-=${item.offsetHeight / 3}`,
+          end: "bottom center",
+          scrub: true,
+          invalidateOnRefresh: true,
+          onEnter: enter,
+          onEnterBack: enter,
+        });
+
+        const mobileVideo = item.querySelector<HTMLVideoElement>("video");
+        const desktopVideo = medias[index]?.querySelector("video");
+
+        const videoTrigger = ScrollTrigger.create({
+          trigger: item,
+          start: "top center",
+          end: "bottom top",
+          invalidateOnRefresh: true,
+          onEnter: () => {
+            void mobileVideo?.play().catch(() => undefined);
+            void desktopVideo?.play().catch(() => undefined);
+          },
+          onEnterBack: () => {
+            void mobileVideo?.play().catch(() => undefined);
+            void desktopVideo?.play().catch(() => undefined);
+          },
+          onLeave: () => {
+            mobileVideo?.pause();
+            desktopVideo?.pause();
+          },
+          onLeaveBack: () => {
+            mobileVideo?.pause();
+            desktopVideo?.pause();
+          },
+        });
+
+        return { fadeIn, phaseTrigger, videoTrigger };
+      });
+
+      return () => {
+        pinTrigger.kill();
+        itemTriggers.forEach(({ fadeIn, phaseTrigger, videoTrigger }) => {
+          fadeIn.scrollTrigger?.kill();
+          fadeIn.kill();
+          phaseTrigger.kill();
+          videoTrigger.kill();
+        });
+      };
+    });
+
+    mm.add("(max-width: 1199px)", () => {
+      const triggers = itemRefs.current
+        .filter(Boolean)
+        .map((item) => {
+          const video = item?.querySelector<HTMLVideoElement>("video");
+          if (!video) return null;
+
+          return ScrollTrigger.create({
+            trigger: item,
+            start: "top center",
+            end: "bottom center",
+            invalidateOnRefresh: true,
+            onEnter: () => void video.play().catch(() => undefined),
+            onEnterBack: () => void video.play().catch(() => undefined),
+            onLeave: () => video.pause(),
+            onLeaveBack: () => video.pause(),
+          });
+        })
+        .filter(Boolean);
+
+      return () => {
+        triggers.forEach((trigger) => trigger?.kill());
+      };
+    });
+
+    return () => mm.revert();
   }, []);
+
+  function setStepIndex(phaseId: string, index: number) {
+    setStepIndices((current) => ({ ...current, [phaseId]: index }));
+  }
 
   return (
     <section ref={sectionRef} className="bg-[#fafafa] section-padding">
@@ -194,92 +349,107 @@ export function ProcessSection() {
           </h2>
         </div>
 
-        <div className="relative flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-24">
+        <div className="relative flex flex-col justify-between gap-12 lg:flex-row lg:gap-24">
           <div className="w-full shrink-0 lg:max-w-2xl lg:w-6/12">
-            {phases.map((phase) => (
-              <div key={phase.id} className="mb-16 last:mb-0">
-                <figure className="relative mb-8 aspect-video overflow-hidden rounded-[var(--brand-radius)] lg:hidden">
-                  <Image
-                    src={phase.poster}
-                    alt={phase.title}
-                    fill
-                    className="object-cover"
-                    sizes="100vw"
-                  />
-                </figure>
+            {phases.map((phase, phaseIndex) => {
+              const stepIndex = stepIndices[phase.id] ?? 0;
 
-                <div className="mb-6">
-                  <p className="mb-2 text-sm text-[#151717]/40">{phase.number}</p>
-                  <h3 className="flex items-center gap-2 text-3xl tracking-tight text-[#151717] md:text-4xl">
-                    {phase.id === activePhaseId ? (
-                      <span className="h-2 w-2 shrink-0 rounded-full bg-[#fe0168]" />
-                    ) : null}
-                    {phase.title}
-                  </h3>
-                </div>
+              return (
+                <div
+                  key={phase.id}
+                  ref={(node) => {
+                    itemRefs.current[phaseIndex] = node;
+                  }}
+                  className="process-item mb-16 flex min-h-[60vh] items-center last:mb-0"
+                >
+                  <div className="w-full">
+                    <figure className="relative mb-7 aspect-video max-w-[24rem] overflow-hidden rounded-[var(--brand-radius)] lg:hidden">
+                      <Image
+                        src={phase.poster}
+                        alt={phase.title}
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                      />
+                    </figure>
 
-                <ul className="mb-8 flex flex-wrap gap-6 border-b border-[#151717]/10 pb-4">
-                  {phase.steps.map((step, stepIndex) => {
-                    const isActive =
-                      activePhaseId === phase.id &&
-                      activeStepIndex === stepIndex;
-                    return (
-                      <li key={step.label}>
+                    <div className="mb-10">
+                      <p className="mb-2 text-base text-[#151717]/50">
+                        {phase.number}
+                      </p>
+                      <h3 className="flex items-center gap-4 text-3xl tracking-tight text-[#151717] md:text-4xl">
                         <span
-                          className={`text-sm transition-colors ${
-                            isActive
-                              ? "border-b border-[#fe0168] pb-1 text-[#151717]"
-                              : "text-[#151717]/40"
+                          aria-hidden="true"
+                          className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#fe0168]"
+                        />
+                        {phase.title}
+                      </h3>
+                    </div>
+
+                    <ul className="flex flex-wrap items-start gap-5">
+                      {phase.steps.map((step, index) => (
+                        <ProcessNavToggle
+                          key={step.label}
+                          label={step.label}
+                          active={stepIndex === index}
+                          onClick={() => setStepIndex(phase.id, index)}
+                        />
+                      ))}
+                    </ul>
+
+                    <div className="relative mt-10 min-h-[8rem]">
+                      {phase.steps.map((step, index) => (
+                        <div
+                          key={step.label}
+                          className={`absolute inset-x-0 top-0 w-full transition-opacity duration-300 ${
+                            stepIndex === index
+                              ? "pointer-events-auto opacity-100"
+                              : "pointer-events-none opacity-0"
                           }`}
                         >
-                          {step.label}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                {phase.steps.map((step, stepIndex) => (
-                  <div
-                    key={step.label}
-                    data-process-step
-                    data-phase-id={phase.id}
-                    data-step-index={stepIndex}
-                    className="min-h-[40vh] scroll-mt-32 py-8 lg:min-h-[50vh]"
-                  >
-                    <p className="max-w-xl text-base leading-relaxed text-[#151717]/75 md:text-lg md:leading-8">
-                      {step.content}
-                    </p>
+                          <p className="max-w-xl text-base leading-relaxed text-[#151717]/75 md:text-lg md:leading-8">
+                            {step.content}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
 
-          <div className="hidden lg:block lg:w-5/12">
-            <div className="sticky top-[calc(114px+2rem)]">
-              <div className="relative min-h-[60vh] max-h-[60vh] overflow-hidden rounded-[1.5rem] bg-[#151717]">
-                {phases.map((phase) => (
+          <div
+            ref={galleryColRef}
+            className="ml-auto hidden grow lg:block lg:w-5/12"
+          >
+            <div
+              ref={galleryRef}
+              className="relative flex min-h-[60vh] max-h-[60vh] items-center"
+            >
+              <div className="relative w-full flex-grow overflow-hidden rounded-[1.5rem] bg-[#151717]">
+                <div className="gallery-medias relative aspect-[4/3] w-full">
+                  {phases.map((phase, index) => (
+                    <figure
+                      key={phase.id}
+                      className={`gallery-media ${
+                        index === 0 ? "relative" : "absolute inset-0"
+                      } h-full w-full`}
+                    >
+                      <GalleryVideo
+                        src={phase.video}
+                        poster={phase.poster}
+                        active={activePhaseIndex === index}
+                      />
+                    </figure>
+                  ))}
                   <div
-                    key={phase.id}
-                    className={`absolute inset-0 transition-opacity duration-700 ${
-                      activePhaseId === phase.id
-                        ? "opacity-100"
-                        : "pointer-events-none opacity-0"
-                    }`}
-                  >
-                    <GalleryVideo
-                      src={phase.video}
-                      poster={phase.poster}
-                      active={activePhaseId === phase.id}
-                    />
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0 rounded-[1.5rem] bg-gradient-to-r from-black/70 via-black/20 to-transparent"
-                    />
-                  </div>
-                ))}
-                <div className="absolute bottom-8 left-8 z-10 text-white">
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-[2] rounded-[1.5rem] bg-gradient-to-r from-black/70 via-black/20 to-transparent"
+                  />
+                </div>
+
+                <div className="absolute bottom-8 left-8 z-[3] text-white">
                   <p className="text-[clamp(2rem,4vw,4rem)] font-normal leading-none tracking-tight">
                     {activePhase.title}
                   </p>
