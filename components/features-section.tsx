@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionLabel } from "@/components/about/section-label";
 import { media } from "@/lib/brand";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const features = [
   {
@@ -35,6 +39,12 @@ const features = [
   },
 ];
 
+function getHeaderHeight() {
+  const header = document.querySelector("header");
+  const sticky = header?.parentElement;
+  return sticky?.clientHeight ?? header?.clientHeight ?? 92;
+}
+
 function FeatureVideo({ src, active }: { src: string; active: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -42,7 +52,10 @@ function FeatureVideo({ src, active }: { src: string; active: boolean }) {
     const video = ref.current;
     if (!video) return;
     if (active) void video.play().catch(() => undefined);
-    else video.pause();
+    else {
+      video.pause();
+      video.currentTime = 0;
+    }
   }, [active]);
 
   return (
@@ -60,29 +73,109 @@ function FeatureVideo({ src, active }: { src: string; active: boolean }) {
 }
 
 export function FeaturesSection() {
-  const [activeId, setActiveId] = useState(features[0].id);
+  const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
-    const cards = sectionRef.current?.querySelectorAll("[data-feature-id]");
-    if (!cards?.length) return;
+  useLayoutEffect(() => {
+    const wrapper = wrapperRef.current;
+    const outer = outerRef.current;
+    const cards = cardsRef.current?.querySelectorAll<HTMLElement>(".feature-card");
+    const nav = navRef.current;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        const top = visible[0];
-        if (top) {
-          const id = top.target.getAttribute("data-feature-id");
-          if (id) setActiveId(id);
+    if (!wrapper || !outer || !cards?.length || !nav) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1200px)", () => {
+      const cardList = Array.from(cards);
+      const cardCount = cardList.length;
+      const outerTop = outer.getBoundingClientRect().top + window.scrollY;
+      let currentIndex = 0;
+
+      const scrollDistance = () => outer.clientHeight - cardList[0].clientHeight;
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          pin: true,
+          start: () => `top ${getHeaderHeight()}`,
+          pinSpacing: false,
+          end: () => `+=${scrollDistance()}`,
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+          onUpdate(self) {
+            const index = Math.round(self.progress * (cardCount - 1));
+            if (index !== currentIndex) {
+              currentIndex = index;
+              setActiveIndex(index);
+            }
+          },
+        },
+      });
+
+      cardList.forEach((card, index) => {
+        if (index < cardCount - 1) {
+          timeline.to(
+            card,
+            {
+              scale: 1 - 0.03 * (cardCount - index - 1),
+              duration: (cardCount - index - 1) * 0.6,
+            },
+            0.5 * index,
+          );
         }
-      },
-      { rootMargin: "-25% 0px -35% 0px", threshold: [0, 0.2, 0.5, 0.8] },
-    );
+        if (index > 0) {
+          timeline.to(
+            card,
+            {
+              y: () =>
+                -cardList
+                  .slice(0, index)
+                  .reduce((sum, c) => sum + c.clientHeight, 0),
+              duration: index,
+              ease: "none",
+            },
+            0,
+          );
+        }
+      });
 
-    cards.forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
+      const navLinks = nav.querySelectorAll("a");
+      const cleanups: Array<() => void> = [];
+
+      navLinks.forEach((link, index) => {
+        const handler = (event: Event) => {
+          event.preventDefault();
+          const offset = cardList
+            .slice(0, index)
+            .reduce(
+              (sum, card) =>
+                sum +
+                card.clientHeight +
+                parseInt(window.getComputedStyle(card).marginBottom || "0", 10),
+              0,
+            );
+          window.scrollTo({
+            top: outerTop - getHeaderHeight() + offset,
+            behavior: "smooth",
+          });
+        };
+        link.addEventListener("click", handler);
+        cleanups.push(() => link.removeEventListener("click", handler));
+      });
+
+      return () => {
+        cleanups.forEach((cleanup) => cleanup());
+        timeline.scrollTrigger?.kill();
+        timeline.kill();
+      };
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -95,71 +188,68 @@ export function FeaturesSection() {
           </h2>
         </div>
 
-        <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
-          <nav
-            aria-label="Differentiators"
-            className="hidden shrink-0 lg:flex lg:h-[60vh] lg:w-48 lg:items-center xl:w-56"
-          >
-            <ul className="sticky top-[calc(114px+2rem)] w-full space-y-5 text-right">
-              {features.map((feature) => {
-                const isActive = activeId === feature.id;
-                return (
-                  <li key={feature.id}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        document
-                          .getElementById(`feature-${feature.id}`)
-                          ?.scrollIntoView({ behavior: "smooth", block: "center" });
-                      }}
-                      className={`inline-flex items-center gap-3 text-base transition-colors ${
-                        isActive
-                          ? "text-[#151717]"
-                          : "text-[#151717]/35 hover:text-[#151717]/60"
-                      }`}
-                    >
-                      <span>{feature.title}</span>
-                      {isActive ? (
-                        <span
-                          aria-hidden="true"
-                          className="h-px w-10 shrink-0 bg-[#151717]"
-                        />
-                      ) : null}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+        <div ref={outerRef} className="cards-outer">
+          <div ref={wrapperRef} className="cards-wrapper flex flex-col lg:flex-row lg:gap-12">
+            <nav
+              aria-label="Differentiators"
+              className="hidden shrink-0 lg:flex lg:h-[60vh] lg:w-48 lg:items-center xl:w-56"
+            >
+              <ul ref={navRef} className="w-full space-y-5 text-right">
+                {features.map((feature, index) => {
+                  const isActive = activeIndex === index;
+                  return (
+                    <li key={feature.id} className={isActive ? "active" : ""}>
+                      <a
+                        href={`#${feature.id}`}
+                        className={`inline-flex items-center gap-3 text-base transition-colors ${
+                          isActive
+                            ? "text-[#151717]"
+                            : "text-[#151717]/35 hover:text-[#151717]/60"
+                        }`}
+                      >
+                        <span>{feature.title}</span>
+                        {isActive ? (
+                          <span
+                            aria-hidden="true"
+                            className="h-px w-10 shrink-0 bg-[#151717]"
+                          />
+                        ) : null}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
 
-          <div className="min-w-0 flex-1 space-y-4">
-            {features.map((feature) => {
-              const isActive = activeId === feature.id;
-              return (
-                <article
-                  key={feature.id}
-                  id={`feature-${feature.id}`}
-                  data-feature-id={feature.id}
-                  className="flex min-h-[calc(100vh-8rem)] min-h-[calc(100svh-8rem)] scroll-mt-28"
-                >
-                  <div className="flex w-full flex-col overflow-hidden rounded-[2rem] bg-[#fafafa] shadow-[0_0.25rem_3.5rem_rgba(0,0,0,0.1)] sm:flex-row-reverse">
-                    <div className="flex w-full items-center p-8 sm:w-1/2 sm:p-[clamp(2rem,8vh,4rem)] md:p-[clamp(3rem,15vh,6rem)]">
-                      <div>
-                        <h3 className="text-2xl tracking-tight text-[#151717] md:text-3xl">
-                          {feature.title}
-                        </h3>
-                        <p className="mt-4 text-sm leading-relaxed text-[#151717]/75 md:text-base">
-                          {feature.description}
-                        </p>
+            <div className="min-w-0 flex-1">
+              <div ref={cardsRef} className="cards w-full">
+                {features.map((feature, index) => {
+                  const isActive = activeIndex === index;
+
+                  return (
+                    <article
+                      key={feature.id}
+                      id={feature.id}
+                      className="feature-card relative mb-4 flex min-h-[calc(100vh-92px-4rem)] min-h-[calc(100svh-92px-4rem)] flex-col overflow-hidden rounded-[1.5rem] bg-[#fafafa] shadow-[0_0.25rem_3.5rem_rgba(0,0,0,0.1)] sm:flex-row-reverse lg:min-h-0 lg:rounded-[2rem]"
+                    >
+                      <div className="flex w-full items-center p-6 sm:w-1/2 sm:p-[clamp(2rem,15vh,6rem)] sm:px-[20%] lg:min-h-[60vh]">
+                        <div>
+                          <h3 className="text-2xl tracking-tight text-[#151717] md:text-3xl">
+                            {feature.title}
+                          </h3>
+                          <p className="mt-4 text-sm leading-relaxed text-[#151717]/75 md:text-base">
+                            {feature.description}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="w-full sm:w-1/2">
-                      <FeatureVideo src={feature.video} active={isActive} />
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+                      <div className="w-full sm:w-1/2">
+                        <FeatureVideo src={feature.video} active={isActive} />
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
