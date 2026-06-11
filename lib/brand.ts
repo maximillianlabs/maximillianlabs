@@ -15,34 +15,62 @@ export const brand = {
   radius: "0.75rem",
 } as const;
 
+const cbd = "https://www.cbwebsitedesign.co.uk/wp-content/uploads";
+
 export const media = {
-  heroVideo:
-    "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/Creative-Brand-Design-Show-Reel.mp4",
-  aboutVideo:
-    "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/07/Creative-Brand-Design-Showreel-V3.mp4",
-  aboutImagePrimary:
-    "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/06/web-design-london.webp",
-  aboutImageSecondary:
-    "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/06/CBD-Mockup-V17-square.webp",
+  aboutVideo: `${cbd}/2025/07/Creative-Brand-Design-Showreel-V3.mp4`,
+  aboutVideoPoster: `${cbd}/2025/07/creativeweb-cover.png`,
+  aboutImagePrimary: `${cbd}/2025/06/web-design-london.webp`,
+  aboutImageSecondary: `${cbd}/2025/06/CBD-Mockup-V17-square.webp`,
   awards: {
-    clutch: "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/clutch3.svg",
-    bestUi: "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/best-ui.svg",
-    bestInnovation:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/best-innovation.svg",
-    awwwards: "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/awwwards.svg",
-    sotd: "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/sotd.svg",
-    sotdCss: "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/sotd-css.svg",
-    cssWinner:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/csswinner.svg",
-    clutch4: "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/clutch4.svg",
+    clutch: `${cbd}/2024/08/clutch3.svg`,
+    bestUi: `${cbd}/2024/08/best-ui.svg`,
+    bestInnovation: `${cbd}/2024/08/best-innovation.svg`,
+    awwwards: `${cbd}/2024/08/awwwards.svg`,
+    sotd: `${cbd}/2024/08/sotd.svg`,
+    sotdCss: `${cbd}/2024/08/sotd-css.svg`,
+    cssWinner: `${cbd}/2024/08/csswinner.svg`,
+    clutch4: `${cbd}/2024/08/clutch4.svg`,
+    iso: `${cbd}/2024/08/iso.svg`,
+    googlePartner: `${cbd}/2024/08/google-partner.svg`,
   },
   portfolio: {
-    recharge:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/01/Recharge-web-design-1.webp",
-    nato: "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/nif-cover.webp",
-    greenAcres:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2025/01/Green-Acres-1.webp",
-    strata:
-      "https://www.cbwebsitedesign.co.uk/wp-content/uploads/2024/08/Strata-1.webp",
+    recharge: `${cbd}/2025/01/Recharge-web-design-1.webp`,
+    rechargeVideo: `${cbd}/2025/01/recharge-720p.mp4`,
+    nato: `${cbd}/2024/08/nif-cover.webp`,
+    natoVideo: `${cbd}/2024/08/nato-portfolio-cover-800x600-1.mp4`,
+    greenAcres: `${cbd}/2025/01/Green-Acres-1.webp`,
+    greenAcresVideo: `${cbd}/2025/01/GreenAcres-Portfolio-Animation-V1_720p.mp4`,
+    strata: `${cbd}/2024/08/Strata-1.webp`,
+    strataVideo: `${cbd}/2024/08/strata-square-v1.5_720p.mp4`,
+  },
+  services: {
+    websiteDesign: `${cbd}/2025/02/Portfolio-Grid-V3_mp4.mp4`,
+    branding: `${cbd}/2025/02/Branding-1-1080p.mp4`,
+    brandingPoster: `${cbd}/2025/06/branding-poster.webp`,
+    digitalMarketing: `${cbd}/2025/02/CBD-SEO-Animation-V3_mp4.mp4`,
+    otherServices: `${cbd}/2025/02/Other-services-graphic_mp4.mp4`,
+  },
+  features: {
+    highlyRated: `${cbd}/2025/04/Branding-Hero-Banner-Animation-V5-sized-home.mp4`,
+    accredited: `${cbd}/2025/04/Awards-Falling-home-sized.mp4`,
+    bespoke: `${cbd}/2025/04/Design-System-Recharge-V1-home-sized.mp4`,
+    guaranteed: `${cbd}/2025/04/PortfolioTiles-home-sized.mp4`,
+  },
+  team: [
+    `${cbd}/2025/06/cbd-team1.webp`,
+    `${cbd}/2025/06/cbd-team14.webp`,
+    `${cbd}/2025/06/cbd-team15.webp`,
+    `${cbd}/2025/06/cbd-team16.webp`,
+    `${cbd}/2025/06/cbd-team10.webp`,
+    `${cbd}/2025/06/cbd-team11.webp`,
+    `${cbd}/2025/06/cbd-team12.webp`,
+    `${cbd}/2025/06/cbd-team3.webp`,
+  ],
+  process: {
+    planning: `${cbd}/2025/02/CBD_clip_planning3_compressed.mp4`,
+    planningPoster: `${cbd}/2025/02/process-planning-poster.webp`,
+    designing: `${cbd}/2025/02/CBD_clip_designing4_compressed.mp4`,
+    designingPoster: `${cbd}/2025/02/process-designing-poster.webp`,
   },
 } as const;

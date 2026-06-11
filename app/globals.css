@@ -213,4 +213,22 @@
       width: calc(100% - 6rem);
     }
   }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(10%);
+    }
+    100% {
+      transform: translateX(-10%);
+    }
+  }
+
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(-10%);
+    }
+    100% {
+      transform: translateX(10%);
+    }
+  }
 }
