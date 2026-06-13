@@ -95,18 +95,31 @@ function FeatureList({
 type ServiceChapterProps = {
   service: Service;
   inverted?: boolean;
+  isFirst?: boolean;
 };
 
-export function ServiceChapter({ service, inverted = false }: ServiceChapterProps) {
+export function ServiceChapter({
+  service,
+  inverted = false,
+  isFirst = false,
+}: ServiceChapterProps) {
   return (
     <section
       id={service.id}
       className={cn(
-        "scroll-mt-36 section-padding",
-        inverted ? "bg-[#0a0a0a] text-white" : "bg-[#f0f0f0] text-[#0a0a0a]",
+        "scroll-mt-28 lg:scroll-mt-32",
+        inverted
+          ? "rounded-[1.5rem] bg-[#0a0a0a] text-white lg:px-8 lg:py-2"
+          : "bg-transparent text-[#0a0a0a]",
       )}
     >
-      <div className="container-wide relative mx-auto max-w-[1400px]">
+      <div
+        className={cn(
+          "relative py-[max(3rem,7vw)]",
+          isFirst && "pt-[max(2rem,4vw)]",
+          inverted && "px-5 sm:px-6",
+        )}
+      >
         {inverted ? (
           <div
             aria-hidden="true"

@@ -3,10 +3,8 @@ import { Navbar } from "@/components/navbar";
 import { SiteFooter } from "@/components/site-footer";
 import { SpeakToUsButton } from "@/components/speak-to-us-button";
 import { ServicesHero } from "@/components/services/services-hero";
-import { ServicesNav } from "@/components/services/services-nav";
-import { ServiceChapter } from "@/components/services/service-chapter";
+import { ServicesChaptersLayout } from "@/components/services/services-chapters-layout";
 import { ServicesCapabilities } from "@/components/services/services-capabilities";
-import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -31,16 +29,7 @@ export default function ServicesPage() {
       </div>
 
       <ServicesHero />
-      <ServicesNav />
-
-      {services.map((service, index) => (
-        <ServiceChapter
-          key={service.id}
-          service={service}
-          inverted={index % 2 === 1}
-        />
-      ))}
-
+      <ServicesChaptersLayout />
       <ServicesCapabilities />
       <SiteFooter />
       <SpeakToUsButton />
