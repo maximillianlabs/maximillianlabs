@@ -6,7 +6,7 @@ import { services } from "@/lib/services";
 
 export function ServicesHero() {
   return (
-    <section className="relative overflow-hidden bg-[#0a0a0a] pb-[max(3rem,8vw)] pt-[max(2rem,5vw)] text-white">
+    <section className="relative overflow-hidden bg-[#0a0a0a] pb-[max(2.5rem,6vw)] pt-[max(1.75rem,4vw)] text-white sm:pb-[max(3rem,8vw)] sm:pt-[max(2rem,5vw)]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.35]"
@@ -34,10 +34,10 @@ export function ServicesHero() {
           className="max-w-3xl"
         >
           <SectionLabel inverted>Capabilities</SectionLabel>
-          <h1 className="text-[clamp(2.75rem,6vw+1rem,5rem)] leading-[1.02] tracking-[-0.03em]">
+          <h1 className="text-balance text-[clamp(2.25rem,6vw+1rem,5rem)] leading-[1.02] tracking-[-0.03em]">
             The <span className="text-[#00ffff]">Lab</span> Catalogue
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75 sm:mt-6 sm:text-lg">
             Four disciplines, one standard of craft. Every service is bespoke,
             obsidian-sharp, and built to leave a digital legacy — from Nigeria to
             the world.
@@ -48,18 +48,18 @@ export function ServicesHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:mt-14 lg:grid-cols-4"
         >
           {services.map((service, index) => (
             <a
               key={service.id}
               href={`#${service.id}`}
-              className="group relative overflow-hidden rounded-[var(--brand-radius)] border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-[#00ffff]/40 hover:bg-white/[0.06]"
+              className="group relative overflow-hidden rounded-[var(--brand-radius)] border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-[#00ffff]/40 hover:bg-white/[0.06] sm:p-5"
             >
               <span className="text-sm tracking-[0.2em] text-[#00ffff]">
                 {service.index}
               </span>
-              <p className="mt-3 text-lg leading-tight tracking-tight text-white">
+              <p className="mt-2 text-base leading-tight tracking-tight text-white sm:mt-3 sm:text-lg">
                 {service.title.join(" ")}
               </p>
               <span

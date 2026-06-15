@@ -49,15 +49,15 @@ export function ServicesSideNav({
       aria-label="Service chapters"
       className={cn(
         isSidebar
-          ? "rounded-[1.25rem] border border-[#0a0a0a]/8 bg-white/90 p-6 shadow-[0_12px_40px_rgba(10,10,10,0.06)] backdrop-blur-sm"
-          : "border-b border-[#0a0a0a]/10 bg-[#f0f0f0]/95 py-4 backdrop-blur-md",
+          ? "rounded-[1.25rem] border border-[#0a0a0a]/8 bg-white/90 p-5 shadow-[0_12px_40px_rgba(10,10,10,0.06)] backdrop-blur-sm xl:p-6"
+          : "border-b border-[#0a0a0a]/10 bg-[#f0f0f0]/95 py-3 backdrop-blur-md sm:py-4",
         className,
       )}
     >
       <p
         className={cn(
-          "mb-5 text-[0.7rem] tracking-[0.22em] text-[#9d9d9b] uppercase",
-          !isSidebar && "container-wide mx-auto max-w-[1400px] px-0",
+          "mb-3 text-[0.7rem] tracking-[0.22em] text-[#9d9d9b] uppercase sm:mb-4",
+          !isSidebar && "px-6 sm:px-10",
         )}
       >
         Chapters
@@ -66,7 +66,9 @@ export function ServicesSideNav({
       <ol
         className={cn(
           "relative",
-          isSidebar ? "space-y-1" : "container-wide mx-auto flex max-w-[1400px] gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          isSidebar
+            ? "space-y-1"
+            : "flex gap-1.5 overflow-x-auto overscroll-x-contain px-6 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:px-10 [&::-webkit-scrollbar]:hidden",
         )}
       >
         {isSidebar ? (
@@ -90,7 +92,7 @@ export function ServicesSideNav({
                   "group relative flex transition-colors",
                   isSidebar
                     ? "items-start gap-4 rounded-lg px-2 py-3"
-                    : "flex-col rounded-lg border px-3 py-2.5",
+                    : "min-w-[7.5rem] flex-col rounded-lg border px-3 py-2 sm:min-w-[8.5rem] sm:px-3.5 sm:py-2.5",
                   isSidebar && isActive && "bg-[#00ffff]/[0.06]",
                   !isSidebar &&
                     (isActive
