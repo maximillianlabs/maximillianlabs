@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className="w-full bg-[#f0f0f0]">
+    <main className="w-full overflow-x-hidden bg-[#f0f0f0]">
       <div className="bg-[#0a0a0a]">
         <Navbar variant="dark" />
       </div>
