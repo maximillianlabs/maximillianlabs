@@ -12,7 +12,7 @@ const projects = [
     tags: ["Web Design", "Coming Soon"],
     description:
       "Our first client projects are in progress. This space will showcase bespoke digital work as launches go live.",
-    image: media.local.mockups.site,
+    image: media.portfolio.clientProject,
     status: "In Progress",
     offset: false,
   },
@@ -21,7 +21,7 @@ const projects = [
     tags: ["Branding", "Coming Soon"],
     description:
       "End-to-end brand and web experiences crafted with aesthetic precision and performance at the core.",
-    image: media.local.mockups.wayfinder,
+    image: media.portfolio.brandExperience,
     status: "In Progress",
     offset: true,
   },
@@ -30,7 +30,7 @@ const projects = [
     tags: ["Web Development", "Coming Soon"],
     description:
       "Interactive, responsive builds engineered for growth — tailored to each partner we work with.",
-    image: media.local.projectShowcase,
+    image: media.portfolio.digitalProduct,
     status: "In Progress",
     offset: false,
   },
@@ -39,7 +39,7 @@ const projects = [
     tags: ["Let's Build", "Contact Us"],
     description:
       "Be among our first featured launches. We're partnering with visionaries ready to architect their digital legacy.",
-    image: media.local.mockups.businessCard,
+    image: media.portfolio.yourProject,
     status: "Open Slot",
     offset: true,
   },

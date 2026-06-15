@@ -125,6 +125,12 @@ export const media = {
     otherServices: "/media/tips.png",
   },
   tiles: [...landingImages],
+  portfolio: {
+    clientProject: landingImages[6],
+    brandExperience: landingImages[4],
+    digitalProduct: landingImages[0],
+    yourProject: landingImages[7],
+  },
   process: {
     planning: landingImages[1],
     designing: landingImages[4],
