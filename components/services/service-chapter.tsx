@@ -38,15 +38,15 @@ function FeatureList({
           >
             <button
               type="button"
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+              className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left sm:gap-4 sm:px-5 sm:py-4"
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
             >
-              <span className="flex items-center gap-3">
+              <span className="flex min-w-0 items-center gap-3">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#00ffff]" />
                 <span
                   className={cn(
-                    "text-base tracking-tight",
+                    "text-sm tracking-tight sm:text-base",
                     inverted ? "text-white" : "text-[#0a0a0a]",
                   )}
                 >
@@ -74,7 +74,7 @@ function FeatureList({
             {isOpen ? (
               <div
                 className={cn(
-                  "space-y-3 border-t px-5 py-4 text-sm leading-relaxed",
+                  "space-y-3 border-t px-4 py-3.5 text-sm leading-relaxed sm:px-5 sm:py-4",
                   inverted
                     ? "border-white/10 text-white/70"
                     : "border-[#0a0a0a]/10 text-[#0a0a0a]/75",
@@ -107,28 +107,27 @@ export function ServiceChapter({
     <section
       id={service.id}
       className={cn(
-        "scroll-mt-28 lg:scroll-mt-32",
+        "scroll-mt-[calc(88px+4.5rem)] md:scroll-mt-[calc(92px+4.5rem)] xl:scroll-mt-32",
         inverted
-          ? "rounded-[1.5rem] bg-[#0a0a0a] text-white lg:px-8 lg:py-2"
+          ? "rounded-[1.25rem] bg-[#0a0a0a] text-white sm:rounded-[1.5rem] xl:px-8 xl:py-2"
           : "bg-transparent text-[#0a0a0a]",
       )}
     >
       <div
         className={cn(
-          "relative py-[max(3rem,7vw)]",
-          isFirst && "pt-[max(2rem,4vw)]",
-          inverted && "px-5 sm:px-6",
+          "relative px-5 py-[max(2.5rem,6vw)] sm:px-6 sm:py-[max(3rem,7vw)] xl:px-0",
+          isFirst && "pt-[max(1.5rem,3vw)] sm:pt-[max(2rem,4vw)]",
         )}
       >
         {inverted ? (
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-[#00ffff]/10 blur-3xl"
+            className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-[#00ffff]/10 blur-3xl sm:-right-20 sm:h-64 sm:w-64"
           />
         ) : null}
 
-        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
-          <FadeIn className="lg:col-span-5">
+        <div className="grid min-w-0 items-start gap-8 md:gap-10 xl:grid-cols-12 xl:gap-14">
+          <FadeIn className="min-w-0 xl:col-span-5">
             <SectionLabel inverted={inverted}>Chapter {service.index}</SectionLabel>
             <p className="text-sm tracking-[0.25em] text-[#00ffff]">{service.index}</p>
             <h2 className="mt-4 text-[clamp(2.25rem,4vw+1rem,3.5rem)] leading-[1.05] tracking-[-0.03em]">
@@ -140,7 +139,7 @@ export function ServiceChapter({
             </h2>
             <p
               className={cn(
-                "mt-5 text-lg leading-relaxed",
+                "mt-5 text-base leading-relaxed sm:text-lg",
                 inverted ? "text-white/75" : "text-[#0a0a0a]/75",
               )}
             >
@@ -189,11 +188,11 @@ export function ServiceChapter({
             </Link>
           </FadeIn>
 
-          <FadeIn delay={0.08} className="lg:col-span-7">
-            <div className="relative">
+          <FadeIn delay={0.08} className="min-w-0 xl:col-span-7">
+            <div className="relative overflow-hidden">
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute -left-6 -top-8 text-[clamp(4rem,10vw,7rem)] leading-none tracking-tight text-[#00ffff]/15"
+                className="pointer-events-none absolute left-0 top-0 text-[clamp(3rem,8vw,7rem)] leading-none tracking-tight text-[#00ffff]/15"
               >
                 {service.index}
               </span>
