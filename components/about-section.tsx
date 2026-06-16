@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { media } from "@/lib/brand";
+import { aboutContent } from "@/lib/about-content";
 
 export function AboutSection() {
   return (
@@ -51,48 +52,19 @@ export function AboutSection() {
           <div className="w-full flex-1">
             <div className="mb-4 inline-flex items-center gap-3 text-[clamp(0.85rem,0.7rem+0.35vw,1rem)] capitalize tracking-[0.2em] text-[#151717]/50">
               <span className="h-2 w-2 shrink-0 rounded-full bg-[#fe0168]" />
-              <span>Nigerian Web Design Agency</span>
+              <span>{aboutContent.whoWeAre.label}</span>
             </div>
 
             <h2 className="text-[clamp(1.75rem,3vw+1rem,2.5rem)] leading-[1.3] tracking-[-0.02em] text-[#0a0a0a]">
-              <strong>Maximillian</strong>
-              <span style={{ fontWeight: 300 }}> Labs</span>
+              {aboutContent.whoWeAre.headline}
             </h2>
 
             <div className="mt-6 space-y-5 text-base leading-relaxed text-[#0a0a0a]/80 sm:w-11/12">
-              <p>
-                We design unique and stunning websites for businesses and
-                enterprises worldwide, offering a personalised, hands-on
-                service from Nigeria that adds true value.
-              </p>
+              {aboutContent.whoWeAre.paragraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+              ))}
 
-              <p>
-                We break the process down into easy, manageable steps, working
-                closely with you at every turn. From{" "}
-                <Link href="#" className="underline underline-offset-2">
-                  WordPress web design
-                </Link>{" "}
-                and{" "}
-                <Link href="#" className="underline underline-offset-2">
-                  interactive website design
-                </Link>{" "}
-                to{" "}
-                <Link href="#" className="underline underline-offset-2">
-                  SEO optimisation
-                </Link>
-                ,{" "}
-                <Link href="#" className="underline underline-offset-2">
-                  multilingual web design
-                </Link>{" "}
-                and UI/UX, we take care of every detail to create a solution
-                that&apos;s tailored just for you.
-              </p>
-
-              <p>
-                With a passion for high-performance, immersive digital
-                experiences, we focus on giving our clients a competitive edge
-                and delivering strong ROI on their investment.
-              </p>
+              <p className="text-[#0a0a0a]">{aboutContent.whoWeAre.closing}</p>
             </div>
 
             <div className="mt-8">
