@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { kollektifSans } from "@/lib/fonts";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://maximillianlabs.com"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Maximillian Labs | Web Design Agency",
     template: "%s | Maximillian Labs",
@@ -14,7 +17,6 @@ export const metadata: Metadata = {
     "web design agency",
     "Nigerian web design",
     "UI UX design",
-    "branding agency",
     "digital agency",
     "web development",
   ],
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     url: "/",
     title: "Maximillian Labs | Web Design Agency",
     description:
-      "Bespoke web design, branding, and digital experiences built from Nigeria for a global clientele.",
+      "Bespoke web design and digital experiences built from Nigeria for a global clientele.",
     siteName: "Maximillian Labs",
   },
   twitter: {

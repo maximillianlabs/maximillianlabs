@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { contactEmail } from "@/lib/site";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -10,15 +11,17 @@ export function ContactInfo() {
     <section className="bg-[#f0f0f0] px-6 py-16 md:px-12 md:py-20 lg:px-20">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
         <div className="space-y-10">
-          <div>
-            <p className="mb-2 text-sm text-zinc-500">E-mail address</p>
-            <Link
-              href="mailto:contact@maximillianlabs.com"
-              className="text-lg font-normal text-[#0a0a0a] transition-opacity hover:opacity-70 md:text-xl"
-            >
-              contact@maximillianlabs.com
-            </Link>
-          </div>
+          {contactEmail ? (
+            <div>
+              <p className="mb-2 text-sm text-zinc-500">E-mail address</p>
+              <Link
+                href={`mailto:${contactEmail}`}
+                className="text-lg font-normal text-[#0a0a0a] transition-opacity hover:opacity-70 md:text-xl"
+              >
+                {contactEmail}
+              </Link>
+            </div>
+          ) : null}
 
           <div>
             <p className="mb-3 text-sm text-zinc-500">Follow us</p>

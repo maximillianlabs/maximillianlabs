@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Maximillian Labs to discuss your next web design, branding, or digital project.",
+    "Get in touch with Maximillian Labs to discuss your next web design or digital project.",
   alternates: {
     canonical: "/contact-us",
   },
