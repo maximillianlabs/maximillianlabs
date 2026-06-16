@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { aboutContent } from "@/lib/about-content";
 import { media } from "@/lib/brand";
 
 export function AboutHero() {
@@ -21,8 +22,7 @@ export function AboutHero() {
             Architecting Digital Legacies
           </h1>
           <p className="text-base leading-relaxed text-white/90 sm:text-lg">
-            We&apos;re Maximillian Labs — a Nigerian web design agency serving a
-            global clientele with precision, quality, and results.
+            {aboutContent.whoWeAre.paragraphs[0]}
           </p>
         </motion.div>
       </div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/fade-in";
 import { SectionLabel } from "@/components/about/section-label";
+import { aboutContent } from "@/lib/about-content";
 import { media } from "@/lib/brand";
 
 const values = [
@@ -22,7 +23,7 @@ export function AboutCulture() {
           <div className="w-full sm:w-2/3">
             <SectionLabel>Our Philosophy</SectionLabel>
             <h2 className="text-balance text-[clamp(1.75rem,3vw+1rem,2.75rem)] font-normal leading-[1.12] tracking-[-0.02em] text-[#0a0a0a]">
-              We don&apos;t just create for the eye — we engineer for the mission
+              {aboutContent.whoWeAre.closing}
             </h2>
           </div>
         </FadeIn>
@@ -64,10 +65,7 @@ export function AboutCulture() {
           <FadeIn delay={0.12}>
             <div className="space-y-8">
               <p className="text-base leading-relaxed text-[#0a0a0a]/80 sm:text-lg">
-                Our philosophy transcends the surface level. We operate at the
-                intersection of aesthetic precision and raw utility, partnering
-                with businesses that demand both beauty and performance from
-                their digital presence.
+                {aboutContent.whoWeAre.paragraphs[1]}
               </p>
 
               <div>
