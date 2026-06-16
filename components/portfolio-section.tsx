@@ -18,7 +18,7 @@ const projects = [
   },
   {
     title: "Brand Experience",
-    tags: ["Branding", "Coming Soon"],
+    tags: ["Web Design", "Coming Soon"],
     description:
       "End-to-end brand and web experiences crafted with aesthetic precision and performance at the core.",
     image: media.portfolio.brandExperience,

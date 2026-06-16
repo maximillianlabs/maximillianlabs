@@ -76,7 +76,7 @@ export function AboutSection() {
                 <Link href="#" className="underline underline-offset-2">
                   interactive website design
                 </Link>{" "}
-                to branding,{" "}
+                to{" "}
                 <Link href="#" className="underline underline-offset-2">
                   SEO optimisation
                 </Link>
