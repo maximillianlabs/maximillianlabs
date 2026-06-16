@@ -29,7 +29,7 @@ export function AboutSection() {
                 <figure className="relative aspect-[7/8] w-full overflow-hidden rounded-[var(--brand-radius)]">
                   <Image
                     src={media.aboutImageSecondary}
-                    alt="Website design mockup"
+                    alt="Website design showcase"
                     fill
                     className="object-cover"
                     sizes="25vw"
