@@ -120,6 +120,8 @@ export const media = {
   },
   services: {
     websiteDesign: "/media/services.png",
+    branding: "/mockups/wayfinder-mockup.png",
+    digitalMarketing: "/images/features/performance-driven.svg",
     otherServices: "/media/tips.png",
   },
   tiles: [...landingImages],
