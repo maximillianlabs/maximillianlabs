@@ -25,6 +25,8 @@ const menuItems = [
 
 const serviceItems = [
   { label: "Website Design", href: "/services#website-design" },
+  { label: "Branding", href: "/services#branding" },
+  { label: "Digital Marketing & SEO", href: "/services#digital-marketing" },
   { label: "Ecommerce", href: "/services#other-services" },
   { label: "Website Support & Hosting", href: "/services#other-services" },
   { label: "Website Audit", href: "/contact-us" },

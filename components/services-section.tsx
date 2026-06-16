@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Plus, Minus } from "lucide-react";
-import { services, type Service, type ServiceFeature } from "@/lib/services";
+import { homeServices, type Service, type ServiceFeature } from "@/lib/services";
 
 function ServiceImage({ src, alt }: { src: string; alt: string }) {
   return (
@@ -70,7 +70,7 @@ function ServiceBlock({
   const blockRef = useRef<HTMLDivElement>(null);
   const isActive = activeId === service.id;
   const isPast =
-    services.findIndex((s) => s.id === activeId) > index;
+    homeServices.findIndex((s) => s.id === activeId) > index;
 
   return (
     <div
@@ -124,7 +124,7 @@ function ServiceBlock({
 }
 
 export function ServicesSection() {
-  const [activeId, setActiveId] = useState(services[0].id);
+  const [activeId, setActiveId] = useState(homeServices[0].id);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -156,7 +156,7 @@ export function ServicesSection() {
     <section id="services" ref={sectionRef} className="bg-[#f0f0f0] pt-0 pb-[max(3rem,9vw)]">
       <div className="container-wide mx-auto max-w-[1400px]">
         <div className="space-y-0">
-          {services.map((service, index) => (
+          {homeServices.map((service, index) => (
             <ServiceBlock
               key={service.id}
               service={service}
