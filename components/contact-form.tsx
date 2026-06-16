@@ -12,7 +12,6 @@ const services = [
   "Web Design & Development",
   "Web Rebuild",
   "Website Maintenance",
-  "Branding",
 ];
 
 function StepIndicator({ step }: { step: 1 | 2 }) {

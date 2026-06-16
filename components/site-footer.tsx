@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { contactEmail } from "@/lib/site";
 import { AwardBadge, FooterAwardsMarquee, awardBadges } from "@/components/award-badges";
 import { Logo } from "@/components/logo";
 import {
@@ -10,10 +11,8 @@ import {
 
 const services = [
   { label: "Website Design", href: "/#services" },
-  { label: "Branding", href: "/#services" },
   { label: "Web Development", href: "/#services" },
   { label: "Website Maintenance", href: "/#services" },
-  { label: "Digital Marketing", href: "/contact-us" },
 ];
 
 const quickLinks = [
@@ -98,14 +97,16 @@ export function SiteFooter() {
                       <br />
                       Serving clients globally
                     </p>
-                    <p>
-                      <FooterLink
-                        href="mailto:contact@maximillianlabs.com"
-                        className="text-white"
-                      >
-                        contact@maximillianlabs.com
-                      </FooterLink>
-                    </p>
+                    {contactEmail ? (
+                      <p>
+                        <FooterLink
+                          href={`mailto:${contactEmail}`}
+                          className="text-white"
+                        >
+                          {contactEmail}
+                        </FooterLink>
+                      </p>
+                    ) : null}
                   </div>
                 </div>
 

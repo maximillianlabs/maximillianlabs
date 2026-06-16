@@ -15,7 +15,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Maximillian Labs — a Nigerian web design agency delivering bespoke websites, branding, and interactive digital experiences worldwide.",
+    "Maximillian Labs — a Nigerian web design agency delivering bespoke websites and interactive digital experiences worldwide.",
 };
 
 export default function Page() {

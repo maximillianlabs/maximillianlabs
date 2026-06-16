@@ -75,87 +75,8 @@ export const services: Service[] = [
     image: media.services.websiteDesign,
   },
   {
-    id: "branding",
-    index: "02",
-    title: ["Branding"],
-    headline: "Identity systems with lasting clarity",
-    cta: "Shape your brand",
-    description: [
-      "Our talented design team includes experienced graphic designers who specialise in creating stunning brand identities that truly capture the essence of your business.",
-      "Let us guide you in building a strong, authentic brand foundation that truly connects with your audience and sets you apart.",
-    ],
-    highlights: ["Logo design", "Visual identity", "Guidelines", "Communications"],
-    features: [
-      {
-        title: "Logo Design",
-        paragraphs: [
-          "We design your logo with your brand at heart. Our logo design service develops clean, vectored artwork that makes your logo stand out across platforms.",
-        ],
-      },
-      {
-        title: "Visual Identity",
-        paragraphs: [
-          "Create a standout brand with our bespoke Visual Identity service, designed to give you a cohesive, eye-catching look across all platforms.",
-          "We help you leave a lasting impression with your brand through developing custom colour palettes, typography, and imagery.",
-        ],
-      },
-      {
-        title: "Brand guidelines",
-        paragraphs: [
-          "Our bespoke Brand Guidelines service keeps your brand consistent across all platforms with detailed colour palette and typography guides.",
-        ],
-      },
-      {
-        title: "Communications",
-        paragraphs: [
-          "Create powerful and clean brand materials that truly stand out, from emails and brochures to presentations, infographics, and social media content.",
-        ],
-      },
-    ],
-    image: media.services.branding,
-  },
-  {
-    id: "digital-marketing",
-    index: "03",
-    title: ["Digital", "Marketing"],
-    headline: "Growth campaigns with measurable ROI",
-    cta: "Discuss marketing",
-    description: [
-      "We provide complete SEO and digital marketing solutions, all managed in-house by our dedicated team.",
-      "We're focused on delivering measurable ROI, ensuring your business reaches the right audience, stands out, and drives meaningful growth.",
-    ],
-    highlights: ["SEO", "Google Partners", "Reporting", "Full-funnel"],
-    features: [
-      {
-        title: "Certified Google Partners",
-        paragraphs: [
-          "As a Certified Google Partner, we have the latest tools and insights from Google at our disposal.",
-        ],
-      },
-      {
-        title: "Dedicated Account Managers",
-        paragraphs: [
-          "Our account managers offer a dedicated hands-on approach, partnering you with one expert fully committed to the success of your campaign.",
-        ],
-      },
-      {
-        title: "Comprehensive reporting",
-        paragraphs: [
-          "As part of our SEO service, we provide you with detailed, transparent updates on your campaign's progress, rankings, conversions, and ROI.",
-        ],
-      },
-      {
-        title: "Full Service",
-        paragraphs: [
-          "Our all-encompassing digital marketing services cover everything from onsite technical and offsite SEO to comprehensive content strategies, and social media management.",
-        ],
-      },
-    ],
-    image: media.services.digitalMarketing,
-  },
-  {
     id: "other-services",
-    index: "04",
+    index: "02",
     title: ["Other", "Services"],
     headline: "Support beyond the launch",
     cta: "Explore add-ons",

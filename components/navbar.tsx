@@ -13,6 +13,7 @@ import {
   LinkedinIcon,
 } from "@/components/social-icons";
 import { brand } from "@/lib/brand";
+import { contactEmail } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
@@ -24,8 +25,6 @@ const menuItems = [
 
 const serviceItems = [
   { label: "Website Design", href: "/services#website-design" },
-  { label: "Branding", href: "/services#branding" },
-  { label: "Digital Marketing & SEO", href: "/services#digital-marketing" },
   { label: "Ecommerce", href: "/services#other-services" },
   { label: "Website Support & Hosting", href: "/services#other-services" },
   { label: "Website Audit", href: "/contact-us" },
@@ -66,9 +65,15 @@ function ContactSidebar({ onClose }: { onClose: () => void }) {
     >
       <div>
         <p className="mb-2 text-sm text-white/80">E-Mail</p>
-        <p className="text-lg font-normal break-words text-white md:text-xl">
-          contact@maximillianlabs.com
-        </p>
+        {contactEmail ? (
+          <p className="text-lg font-normal break-words text-white md:text-xl">
+            {contactEmail}
+          </p>
+        ) : (
+          <p className="text-lg font-normal text-white/70 md:text-xl">
+            Use the contact form
+          </p>
+        )}
       </div>
 
       <div>
