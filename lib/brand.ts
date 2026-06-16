@@ -126,10 +126,10 @@ export const media = {
   },
   tiles: [...landingImages],
   portfolio: {
-    clientProject: landingImages[6],
-    brandExperience: landingImages[4],
-    digitalProduct: landingImages[0],
-    yourProject: landingImages[7],
+    clientProject: "/images/portfolio/client-project.jpg",
+    brandExperience: "/images/portfolio/brand-experience.jpg",
+    digitalProduct: "/images/portfolio/digital-product.jpg",
+    yourProject: "/images/portfolio/your-project.jpg",
   },
   process: {
     planning: landingImages[1],
