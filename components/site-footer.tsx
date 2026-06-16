@@ -10,9 +10,9 @@ import {
 } from "@/components/social-icons";
 
 const services = [
-  { label: "Website Design", href: "/#services" },
-  { label: "Web Development", href: "/#services" },
-  { label: "Website Maintenance", href: "/#services" },
+  { label: "Website Design", href: "/services#website-design" },
+  { label: "Web Development", href: "/services#website-design" },
+  { label: "Website Maintenance", href: "/services#other-services" },
 ];
 
 const quickLinks = [
@@ -20,7 +20,7 @@ const quickLinks = [
   { label: "Contact", href: "/contact-us" },
   { label: "Our Agency", href: "/about" },
   { label: "Our Work", href: "/#work" },
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services" },
   { label: "Home", href: "/" },
 ];
 
