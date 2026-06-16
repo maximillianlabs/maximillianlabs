@@ -25,12 +25,10 @@ const menuItems = [
 
 const serviceItems = [
   { label: "Website Design", href: "/services#website-design" },
-  { label: "Branding", href: "/services#branding" },
-  { label: "Digital Marketing & SEO", href: "/services#digital-marketing" },
+  { label: "Web Development", href: "/services#website-design" },
   { label: "Ecommerce", href: "/services#other-services" },
   { label: "Website Support & Hosting", href: "/services#other-services" },
   { label: "Website Audit", href: "/contact-us" },
-  { label: "Web Development", href: "/services#website-design" },
 ];
 
 function MenuIcon({ className }: { className?: string }) {

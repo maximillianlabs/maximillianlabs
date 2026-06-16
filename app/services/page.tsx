@@ -9,14 +9,14 @@ import { ServicesCapabilities } from "@/components/services/services-capabilitie
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Website design, branding, digital marketing, and support services from Maximillian Labs — a Nigerian agency crafting bespoke digital experiences worldwide.",
+    "Website design and support services from Maximillian Labs — a Nigerian agency crafting bespoke digital experiences worldwide.",
   alternates: {
     canonical: "/services",
   },
   openGraph: {
     title: "Services | Maximillian Labs",
     description:
-      "Explore bespoke website design, branding, SEO, and digital support from Maximillian Labs.",
+      "Explore bespoke website design and digital support from Maximillian Labs.",
     url: "/services",
   },
 };
