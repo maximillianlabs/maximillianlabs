@@ -31,7 +31,7 @@ const features = [
     description:
       "No templates and no shortcuts. Every layout, interaction, and component is custom-crafted around your goals, users, and brand voice.",
     image: "/images/features/fully-bespoke.svg",
-    imageAlt: "Layered design system mockup representing fully bespoke work",
+    imageAlt: "Layered design system graphic representing fully bespoke work",
   },
   {
     id: "guaranteed-service",

@@ -61,7 +61,7 @@ export const media = {
     team: [landingImages[2], landingImages[4], landingImages[1]],
   },
   services: {
-    websiteDesign: "/media/services.webp",
+    websiteDesign: landingImages[4],
     otherServices: "/media/tips.webp",
   },
   tiles: [...landingImages],
@@ -85,10 +85,5 @@ export const media = {
       "/media/web-facts-3.webp",
       "/media/web-facts-4.webp",
     ],
-    mockups: {
-      site: "/mockups/site-mockup.png",
-      wayfinder: "/mockups/wayfinder-mockup.png",
-      businessCard: "/mockups/business-card-mockup.png",
-    },
   },
 } as const;
