@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { kollektifSans } from "@/lib/fonts";
 import { getSiteUrl } from "@/lib/site";
+import { CookieConsentModal } from "@/components/cookie-consent-modal";
 import "./globals.css";
 
 const siteUrl = getSiteUrl();
@@ -81,6 +82,7 @@ export default function RootLayout({
         className={`${kollektifSans.className} font-sans font-normal antialiased bg-[#f0f0f0] text-[#0a0a0a]`}
       >
         {children}
+        <CookieConsentModal />
       </body>
     </html>
   );
