@@ -10,14 +10,26 @@ export function CookieConsentModal() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let shouldShowModal = false;
+
     try {
       const savedConsent = window.localStorage.getItem(COOKIE_CONSENT_KEY);
-      if (!savedConsent) {
-        setIsVisible(true);
-      }
+      shouldShowModal = !savedConsent;
     } catch {
-      setIsVisible(true);
+      shouldShowModal = true;
     }
+
+    if (!shouldShowModal) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setIsVisible(true);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   function handleConsent(consent: ConsentState) {
