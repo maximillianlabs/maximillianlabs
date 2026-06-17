@@ -24,8 +24,8 @@ function FabCircle({
 }) {
   const dimensions =
     size === "main"
-      ? "h-28 w-28 text-sm"
-      : "h-20 w-20 text-xs leading-tight";
+      ? "h-20 w-20 text-xs"
+      : "h-14 w-14 text-[10px] leading-tight";
 
   const sharedClassName = cn(
     "flex items-center justify-center rounded-full text-center font-normal shadow-2xl transition-transform hover:scale-105",
@@ -92,7 +92,7 @@ export function SpeakToUsButton() {
   return (
     <div
       ref={containerRef}
-      className="fixed bottom-8 right-8 z-50 h-28 w-28 overflow-visible"
+      className="fixed bottom-5 right-5 z-50 h-20 w-20 overflow-visible sm:bottom-6 sm:right-6"
       role="group"
       aria-label="Contact options"
     >
@@ -105,7 +105,7 @@ export function SpeakToUsButton() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.5, y: 20 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute bottom-[calc(100%+0.75rem)] right-0"
+              className="absolute bottom-[calc(100%+0.5rem)] right-0"
             >
               <FabCircle
                 label="Chat now"
@@ -124,7 +124,7 @@ export function SpeakToUsButton() {
                 delay: 0.04,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="absolute bottom-0 right-[calc(100%+0.75rem)]"
+              className="absolute bottom-0 right-[calc(100%+0.5rem)]"
             >
               <FabCircle
                 label="Book a call"
@@ -142,7 +142,7 @@ export function SpeakToUsButton() {
         aria-expanded={isOpen}
         aria-haspopup="true"
         className={cn(
-          "absolute bottom-0 right-0 flex h-28 w-28 items-center justify-center rounded-full text-center text-sm font-normal shadow-2xl transition-transform hover:scale-105",
+          "absolute bottom-0 right-0 flex h-20 w-20 items-center justify-center rounded-full text-center text-xs font-normal shadow-2xl transition-transform hover:scale-105",
         )}
         style={{ backgroundColor: fabColor, color: fabTextColor }}
       >
