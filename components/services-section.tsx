@@ -153,7 +153,7 @@ export function ServicesSection() {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="bg-[#f0f0f0] pt-0 pb-[max(3rem,9vw)]">
+    <section id="services" ref={sectionRef} className="bg-[#f0f0f0] pt-[max(2.5rem,6vw)] pb-[max(3rem,9vw)] sm:pt-[max(3rem,7vw)]">
       <div className="container-wide mx-auto max-w-[1400px]">
         <div className="space-y-0">
           {services.map((service, index) => (

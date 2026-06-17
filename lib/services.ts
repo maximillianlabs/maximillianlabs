@@ -25,7 +25,7 @@ export const services: Service[] = [
     headline: "Bespoke websites engineered to perform",
     cta: "Start a website project",
     description: [
-      "Maximillian Labs crafts high-performance, unique, and scalable websites that stand out — built from Nigeria for a global clientele.",
+      "Maximillian Labs crafts high-performance, unique, and scalable websites that stand out, built from Nigeria for a global clientele.",
       "Our team takes a thorough and creative approach to every web design project, ensuring we build a website that's perfectly tailored to your needs.",
     ],
     highlights: ["Fully bespoke", "SEO-ready", "Interactive", "WordPress CMS"],
