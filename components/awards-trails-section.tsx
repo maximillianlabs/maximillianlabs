@@ -6,7 +6,13 @@ import { FadeIn } from "@/components/fade-in";
 import { SectionLabel } from "@/components/about/section-label";
 import { media } from "@/lib/brand";
 
-const trailVisuals = media.local.webFacts;
+const trailVisuals = media.about.gallery.slice(0, 4);
+const trailCardPositions = [
+  { left: "8%", top: "4%", rotate: -10 },
+  { left: "36%", top: "28%", rotate: -6 },
+  { left: "62%", top: "52%", rotate: 2 },
+  { left: "86%", top: "10%", rotate: 8 },
+] as const;
 
 export function AwardsTrailsSection() {
   return (
@@ -32,18 +38,29 @@ export function AwardsTrailsSection() {
           </Link>
         </FadeIn>
 
-        <div aria-hidden="true" className="pointer-events-none relative mt-16 h-48 md:h-64">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none relative mt-16 h-56 md:h-72"
+        >
           {trailVisuals.map((src, i) => (
             <div
               key={src}
-              className="absolute h-20 w-20 overflow-hidden rounded-2xl bg-white/10 p-1 md:h-24 md:w-24"
+              className="absolute h-24 w-32 overflow-hidden rounded-xl border border-white/25 bg-white/10 p-1 shadow-[0_1rem_2.5rem_rgba(0,0,0,0.45)] md:h-32 md:w-44"
               style={{
-                left: `${10 + (i % 4) * 22}%`,
-                top: `${(i % 3) * 28}%`,
-                transform: `rotate(${(i % 5) * 6 - 12}deg)`,
+                left: trailCardPositions[i]?.left ?? "8%",
+                top: trailCardPositions[i]?.top ?? "0%",
+                transform: `translateX(-50%) rotate(${
+                  trailCardPositions[i]?.rotate ?? 0
+                }deg)`,
               }}
             >
-              <Image src={src} alt="" width={80} height={80} className="h-full w-full object-cover" />
+              <Image
+                src={src}
+                alt=""
+                width={320}
+                height={220}
+                className="h-full w-full rounded-[0.6rem] object-cover"
+              />
             </div>
           ))}
         </div>
