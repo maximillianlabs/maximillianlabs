@@ -62,7 +62,7 @@ export const media = {
   },
   services: {
     websiteDesign: landingImages[4],
-    otherServices: "/media/tips.webp",
+    otherServices: "/media/services.webp",
   },
   tiles: [...landingImages],
   portfolio: {
