@@ -35,20 +35,26 @@ function MenuIcon({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      viewBox="0 0 24 16"
+      viewBox="0 0 24 18"
       fill="none"
-      className={cn("h-4 w-6", className)}
+      className={cn("h-5 w-7", className)}
     >
       <path
-        d="M0 1.5H14"
+        d="M2 2H22"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth="1.5"
         strokeLinecap="round"
       />
       <path
-        d="M0 14.5H24"
+        d="M8 9H22"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M2 16H22"
+        stroke="currentColor"
+        strokeWidth="1.5"
         strokeLinecap="round"
       />
     </svg>
@@ -223,21 +229,28 @@ export function Navbar({ variant = "light" }: NavbarProps) {
     <>
       <div
         className={cn(
-          "sticky top-0 z-40 w-full",
+          "sticky top-0 z-40 w-full border-b backdrop-blur-[24px]",
           isDark
-            ? "bg-[#0a0a0a]/90 backdrop-blur-md"
-            : "bg-[#f0f0f0]/80 backdrop-blur-[30px]",
+            ? "border-[#0a0a0a]/10 bg-[linear-gradient(180deg,#f4f4f4_0%,#e8e8e8_100%)] shadow-[0_12px_32px_-24px_rgba(0,0,0,0.65)] md:border-white/10 md:bg-[#0a0a0a]/90 md:shadow-none"
+            : "border-[#0a0a0a]/10 bg-[linear-gradient(180deg,#f4f4f4_0%,#e8e8e8_100%)] shadow-[0_12px_32px_-24px_rgba(0,0,0,0.65)] md:bg-[#f0f0f0]/85",
         )}
       >
-        <header className="relative mx-auto flex w-full max-w-[1400px] items-center justify-between px-6 py-6 md:px-10 md:py-8">
-          <Logo variant={isDark ? "white" : "black"} />
+        <header className="relative mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 md:px-10 md:py-6 lg:py-7">
+          {isDark ? (
+            <>
+              <Logo variant="black" className="md:hidden" />
+              <Logo variant="white" className="hidden md:inline-flex" />
+            </>
+          ) : (
+            <Logo variant="black" />
+          )}
 
           <div className="flex items-center gap-4 md:gap-5">
             <Button
               variant="outline"
               asChild
               className={cn(
-                "h-10 rounded-md border bg-transparent px-5 text-sm font-normal shadow-none md:h-11 md:px-6",
+                "hidden h-10 rounded-md border bg-transparent px-5 text-sm font-normal shadow-none md:inline-flex md:h-11 md:px-6",
                 isDark
                   ? "border-white text-white hover:bg-white/10"
                   : "border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a]/5",
@@ -253,7 +266,7 @@ export function Navbar({ variant = "light" }: NavbarProps) {
               onClick={openMenu}
               className={cn(
                 "flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-60",
-                isDark ? "text-white" : "text-[#0a0a0a]",
+                isDark ? "text-[#0a0a0a] md:text-white" : "text-[#0a0a0a]",
               )}
             >
               <MenuIcon />
