@@ -6,7 +6,7 @@ import { logos } from "@/lib/brand";
 function BrandIcon({ className }: { className?: string }) {
   return (
     <Image
-      src={logos.iconBlack}
+      src={logos.iconCyan}
       alt=""
       width={28}
       height={28}

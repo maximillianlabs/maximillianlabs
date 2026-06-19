@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { FolderOpen } from "lucide-react";
+import { FolderOpen, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,8 +31,13 @@ function StepIndicator({ step }: { step: 1 | 2 }) {
 }
 
 export function ContactForm() {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [briefFile, setBriefFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -48,13 +53,88 @@ export function ContactForm() {
     );
   }
 
+  function handleBriefChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] ?? null;
+    setBriefFile(file);
+    setSubmitError(null);
+  }
+
+  function clearBrief() {
+    setBriefFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
+
   function handleStepOneSubmit(event: React.FormEvent) {
     event.preventDefault();
+    setSubmitError(null);
     setStep(2);
   }
 
-  function handleFinalSubmit(event: React.FormEvent) {
+  async function handleFinalSubmit(event: React.FormEvent) {
     event.preventDefault();
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    try {
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("email", formData.email);
+      payload.append("phone", formData.phone);
+      payload.append("projectDetails", formData.projectDetails);
+      payload.append("services", selectedServices.join(", "));
+
+      if (briefFile) {
+        payload.append("brief", briefFile);
+      }
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: payload,
+      });
+
+      const result = (await response.json()) as {
+        success?: boolean;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(result.error ?? "Unable to submit the form.");
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Unable to submit the form. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  if (isSubmitted) {
+    return (
+      <div className="relative px-6 pb-16 pt-4 md:px-14 md:pb-20 md:pt-6 lg:px-24 lg:pb-24">
+        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
+          <div className="max-w-xl lg:max-w-2xl">
+            <div className="mb-5 flex items-center gap-2.5">
+              <span className="h-2 w-2 rounded-full bg-[#00ffff]" />
+              <span className="text-sm text-zinc-400">Thank you</span>
+            </div>
+            <h1 className="max-w-lg text-[2rem] font-normal leading-[1.15] tracking-tight text-white md:text-[2.5rem] lg:text-[2.75rem]">
+              We&apos;ve received your enquiry.
+            </h1>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-zinc-400">
+              Thanks for reaching out, {formData.name}. We&apos;ll review your
+              project details and get back to you shortly.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -181,9 +261,30 @@ export function ContactForm() {
                 <FolderOpen className="h-6 w-6 shrink-0 text-zinc-400" strokeWidth={1.5} />
                 <div className="flex-1">
                   <p className="text-sm font-normal text-white">Send us your brief</p>
-                  <p className="text-xs text-zinc-500">PDF, DOC</p>
+                  <p className="text-xs text-zinc-500">
+                    {briefFile ? briefFile.name : "PDF, DOC"}
+                  </p>
                 </div>
-                <input type="file" accept=".pdf,.doc,.docx" className="sr-only" />
+                {briefFile ? (
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      clearBrief();
+                    }}
+                    className="text-zinc-400 transition-colors hover:text-white"
+                    aria-label="Remove file"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                ) : null}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  className="sr-only"
+                  onChange={handleBriefChange}
+                />
               </label>
 
               <p className="max-w-lg text-sm leading-relaxed text-zinc-500">
@@ -195,13 +296,18 @@ export function ContactForm() {
                 for more information about how we protect and manage your data.
               </p>
 
+              {submitError ? (
+                <p className="text-sm text-red-400">{submitError}</p>
+              ) : null}
+
               <div className="flex flex-wrap items-center gap-5 md:gap-6">
                 <Button
                   type="submit"
+                  disabled={isSubmitting}
                   variant="outline"
-                  className="h-11 rounded-md border border-white bg-transparent px-7 text-sm font-normal text-white shadow-none hover:bg-white/10"
+                  className="h-11 rounded-md border border-white bg-transparent px-7 text-sm font-normal text-white shadow-none hover:bg-white/10 disabled:opacity-60"
                 >
-                  Submit Form
+                  {isSubmitting ? "Submitting..." : "Submit Form"}
                 </Button>
                 <button
                   type="button"
