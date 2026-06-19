@@ -82,7 +82,7 @@ export function SiteFooter() {
             <div className="mb-12 lg:mb-16">
               <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-6">
                 <div className="sm:col-span-2 lg:col-span-3 xl:col-span-2">
-                  <Logo variant="white" />
+                  <Logo variant="cyan" />
                   <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/60">
                     World-class web design and development from Nigeria to the
                     world.
