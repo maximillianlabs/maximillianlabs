@@ -24,9 +24,11 @@ export function Logo({
   iconOnly = false,
 }: LogoProps) {
   const src = iconOnly
-    ? variant === "white" || variant === "cyan"
-      ? logos.iconWhite
-      : logos.iconBlack
+    ? variant === "cyan"
+      ? logos.iconCyan
+      : variant === "white"
+        ? logos.iconWhite
+        : logos.iconBlack
     : logoSources[variant];
 
   return (

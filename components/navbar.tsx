@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight, ChevronLeft, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -123,21 +123,27 @@ function ContactSidebar({ onClose }: { onClose: () => void }) {
 
 function MenuNavItem({
   label,
-  href,
   isActive,
   onHover,
   onLeave,
-  onClick,
+  onSelect,
 }: {
   label: string;
-  href?: string;
   isActive: boolean;
   onHover: () => void;
   onLeave: () => void;
-  onClick?: () => void;
+  onSelect: () => void;
 }) {
-  const content = (
-    <>
+  return (
+    <button
+      type="button"
+      className="group flex w-full items-center py-1 text-left outline-none transition-opacity"
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onFocus={onHover}
+      onBlur={onLeave}
+      onClick={onSelect}
+    >
       <motion.span
         aria-hidden="true"
         className="h-px shrink-0"
@@ -158,40 +164,7 @@ function MenuNavItem({
       >
         {label}
       </motion.span>
-    </>
-  );
-
-  const className =
-    "group flex w-full items-center py-1 text-left outline-none transition-opacity";
-
-  if (onClick) {
-    return (
-      <button
-        type="button"
-        className={className}
-        onMouseEnter={onHover}
-        onMouseLeave={onLeave}
-        onFocus={onHover}
-        onBlur={onLeave}
-        onClick={onClick}
-      >
-        {content}
-      </button>
-    );
-  }
-
-  return (
-    <Link
-      href={href ?? "#"}
-      className={className}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
-      onFocus={onHover}
-      onBlur={onLeave}
-      onClick={onClick}
-    >
-      {content}
-    </Link>
+    </button>
   );
 }
 
@@ -201,6 +174,7 @@ type NavbarProps = {
 
 export function Navbar({ variant = "light" }: NavbarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const isDark = variant === "dark";
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState<string | null>(null);
@@ -225,25 +199,23 @@ export function Navbar({ variant = "light" }: NavbarProps) {
     setActiveItem(null);
   }
 
+  function navigateFromMenu(href: string) {
+    closeMenu();
+    router.push(href);
+  }
+
   return (
     <>
       <div
         className={cn(
           "sticky top-0 z-40 w-full border-b backdrop-blur-[24px]",
           isDark
-            ? "border-[#0a0a0a]/10 bg-[linear-gradient(180deg,#f4f4f4_0%,#e8e8e8_100%)] shadow-[0_12px_32px_-24px_rgba(0,0,0,0.65)] md:border-white/10 md:bg-[#0a0a0a]/90 md:shadow-none"
+            ? "border-white/10 bg-[#0a0a0a]/95 shadow-none"
             : "border-[#0a0a0a]/10 bg-[linear-gradient(180deg,#f4f4f4_0%,#e8e8e8_100%)] shadow-[0_12px_32px_-24px_rgba(0,0,0,0.65)] md:bg-[#f0f0f0]/85",
         )}
       >
         <header className="relative mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 md:px-10 md:py-6 lg:py-7">
-          {isDark ? (
-            <>
-              <Logo variant="black" className="md:hidden" />
-              <Logo variant="white" className="hidden md:inline-flex" />
-            </>
-          ) : (
-            <Logo variant="black" />
-          )}
+          <Logo variant={isDark ? "white" : "black"} />
 
           <div className="flex items-center gap-4 md:gap-5">
             <Button
@@ -266,7 +238,7 @@ export function Navbar({ variant = "light" }: NavbarProps) {
               onClick={openMenu}
               className={cn(
                 "flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-60",
-                isDark ? "text-[#0a0a0a] md:text-white" : "text-[#0a0a0a]",
+                isDark ? "text-white" : "text-[#0a0a0a]",
               )}
             >
               <MenuIcon />
@@ -301,7 +273,7 @@ export function Navbar({ variant = "light" }: NavbarProps) {
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="flex items-center justify-between"
               >
-                <Logo variant="white" />
+                <Logo variant="black" />
                 <button
                   type="button"
                   aria-label="Close menu"
@@ -352,27 +324,23 @@ export function Navbar({ variant = "light" }: NavbarProps) {
                                     ease: [0.22, 1, 0.36, 1],
                                   }}
                                 >
-                                  {item.submenu ? (
-                                    <MenuNavItem
-                                      label={item.label}
-                                      isActive={activeItem === item.label}
-                                      onHover={() => setActiveItem(item.label)}
-                                      onLeave={() => setActiveItem(null)}
-                                      onClick={() => setShowServices(true)}
-                                    />
-                                  ) : (
-                                    <MenuNavItem
-                                      label={item.label}
-                                      href={item.href}
-                                      isActive={
-                                        activeItem === item.label ||
-                                        pathname === item.href
-                                      }
-                                      onHover={() => setActiveItem(item.label)}
-                                      onLeave={() => setActiveItem(null)}
-                                      onClick={closeMenu}
-                                    />
-                                  )}
+                                  <MenuNavItem
+                                    label={item.label}
+                                    isActive={
+                                      activeItem === item.label ||
+                                      (!item.submenu &&
+                                        (pathname === item.href ||
+                                          (item.href.startsWith("/#") &&
+                                            pathname === "/")))
+                                    }
+                                    onHover={() => setActiveItem(item.label)}
+                                    onLeave={() => setActiveItem(null)}
+                                    onSelect={() =>
+                                      item.submenu
+                                        ? setShowServices(true)
+                                        : navigateFromMenu(item.href)
+                                    }
+                                  />
                                 </motion.div>
                               ))}
                             </nav>
@@ -411,11 +379,10 @@ export function Navbar({ variant = "light" }: NavbarProps) {
                                 >
                                   <MenuNavItem
                                     label={item.label}
-                                    href={item.href}
                                     isActive={activeItem === item.label}
                                     onHover={() => setActiveItem(item.label)}
                                     onLeave={() => setActiveItem(null)}
-                                    onClick={closeMenu}
+                                    onSelect={() => navigateFromMenu(item.href)}
                                   />
                                 </motion.div>
                               ))}

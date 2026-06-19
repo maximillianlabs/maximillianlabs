@@ -10,7 +10,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative w-full overflow-hidden pt-6 md:pt-10">
+    <section className="relative w-full overflow-hidden pb-20 pt-6 md:pb-28 md:pt-10 lg:pb-36">
       <div className="container-wide relative z-20 mx-auto max-w-[1400px]">
         <div className="mx-auto max-w-4xl text-center">
           <motion.h1
