@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionLabel } from "@/components/about/section-label";
+import styles from "@/components/features-section.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -207,9 +208,11 @@ export function FeaturesSection() {
                     <article
                       key={feature.id}
                       id={feature.id}
-                      className="feature-card relative mb-4 flex min-h-[calc(100vh-92px-4rem)] min-h-[calc(100svh-92px-4rem)] flex-col overflow-hidden rounded-[1.5rem] bg-[#f0f0f0] shadow-[0_0.25rem_3.5rem_rgba(0,0,0,0.1)] sm:flex-row-reverse lg:min-h-0 lg:rounded-[2rem]"
+                      className={`feature-card ${styles.featureCard} relative mb-4 flex min-h-[calc(100vh-92px-4rem)] min-h-[calc(100svh-92px-4rem)] flex-col overflow-hidden rounded-[1.5rem] bg-[#f0f0f0] shadow-[0_0.25rem_3.5rem_rgba(0,0,0,0.1)] sm:flex-row-reverse lg:min-h-0 lg:rounded-[2rem]`}
                     >
-                      <div className="flex w-full items-center p-6 sm:w-1/2 sm:p-[clamp(2rem,15vh,6rem)] sm:px-[20%] lg:min-h-[60vh]">
+                      <div
+                        className={`${styles.featureCardContent} flex w-full items-center p-6 sm:w-1/2 sm:p-[clamp(2rem,15vh,6rem)] sm:px-[20%] lg:min-h-[60vh]`}
+                      >
                         <div>
                           <h3 className="text-2xl tracking-tight text-[#0a0a0a] md:text-3xl">
                             {feature.title}
@@ -219,18 +222,19 @@ export function FeaturesSection() {
                           </p>
                         </div>
                       </div>
-                      <div className="w-full sm:w-1/2">
-                        <Image
-                          src={feature.image}
-                          alt={feature.imageAlt}
-                          width={900}
-                          height={900}
-                          className={`aspect-square h-full w-full object-cover transition-transform duration-500 ${
-                            isActive ? "scale-[1.01]" : "scale-100"
-                          }`}
-                          sizes="(max-width: 640px) 100vw, 50vw"
-                          priority={index === 0}
-                        />
+                      <div className={`${styles.featureCardImage} sm:w-1/2 sm:self-center`}>
+                        <div className={styles.featureCardImageInner}>
+                          <Image
+                            src={feature.image}
+                            alt={feature.imageAlt}
+                            fill
+                            className={`object-cover transition-transform duration-500 ${
+                              isActive ? "scale-[1.01]" : "scale-100"
+                            }`}
+                            sizes="(max-width: 640px) 100vw, (max-width: 1199px) and (orientation: landscape) 100vw, 50vw"
+                            priority={index === 0}
+                          />
+                        </div>
                       </div>
                     </article>
                   );
