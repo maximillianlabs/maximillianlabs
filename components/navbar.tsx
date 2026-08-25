@@ -18,12 +18,13 @@ import { cn } from "@/lib/utils";
 
 const menuItems = [
   { label: "Our Work", href: "/#work" },
-  { label: "Our Agency", href: "/about" },
+  { label: "Company", href: "/about" },
   { label: "Services", href: "/services", submenu: true },
   { label: "Contact", href: "/contact-us" },
 ];
 
 const serviceItems = [
+  { label: "SaaS Development", href: "/services#saas-development" },
   { label: "Website Design", href: "/services#website-design" },
   { label: "Web Development", href: "/services#website-design" },
   { label: "Ecommerce", href: "/services#other-services" },

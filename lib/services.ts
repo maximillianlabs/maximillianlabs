@@ -19,8 +19,65 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    id: "website-design",
+    id: "saas-development",
     index: "01",
+    title: ["SaaS", "Development"],
+    headline: "Software products engineered to scale",
+    cta: "Start a software project",
+    description: [
+      "Maximillian Labs builds custom SaaS platforms and web applications from the ground up, built from Nigeria for a global clientele.",
+      "From MVP to full-scale product, we take a thorough and strategic approach to every build, ensuring your software is architected to grow with your business.",
+    ],
+    highlights: ["Custom-built", "Scalable", "API-integrated", "Cloud-native"],
+    features: [
+      {
+        title: "Fully Custom Software",
+        paragraphs: [
+          "Our Nigeria-based development team builds software tailored to your specific business logic — no off-the-shelf platforms or generic boilerplate.",
+          "We focus on delivering a custom-built product that's fully aligned with your goals and can evolve as your requirements change.",
+        ],
+      },
+      {
+        title: "Scalable Architecture",
+        paragraphs: [
+          "We architect every product with growth in mind, from database design to infrastructure, so your software performs whether you have ten users or ten thousand.",
+          "Using modern frameworks and cloud-native practices, we build systems that scale reliably without costly rewrites down the line.",
+        ],
+      },
+      {
+        title: "MVP to Full Product",
+        paragraphs: [
+          "During the discovery stage, we take time to understand your product vision, target users, and core workflows so we can prioritise what matters most for launch.",
+          "Whether you need a lean MVP to validate an idea or a full-featured platform, we scope the build to match your stage and budget.",
+        ],
+      },
+      {
+        title: "API & Third-Party Integrations",
+        paragraphs: [
+          "We build and integrate APIs that connect your software with the tools you already rely on — payments, CRMs, analytics, and more.",
+          "Every integration is built with reliability and security in mind, so your product works seamlessly behind the scenes.",
+        ],
+      },
+      {
+        title: "Modern Tech Stack",
+        paragraphs: [
+          "We build using industry-leading frameworks and languages suited to your product's needs, prioritising performance, maintainability, and developer velocity.",
+          "We develop the front end and back end as clean, well-structured systems, resulting in software that's easy to extend and maintain long-term.",
+        ],
+      },
+      {
+        title: "Multi-Tenant & Global-Ready",
+        paragraphs: [
+          "We design and develop multi-tenant SaaS architectures that effectively serve a global user base.",
+          "Featuring role-based access, localisation support, and region-aware infrastructure, we make sure your product is ready for the markets you're targeting.",
+        ],
+      },
+    ],
+    image: media.services.websiteDesign,
+  },
+  {
+    id: "website-design",
+    index: "02",
     title: ["Website", "Design"],
     headline: "Bespoke websites engineered to perform",
     cta: "Start a website project",
@@ -76,31 +133,31 @@ export const services: Service[] = [
   },
   {
     id: "other-services",
-    index: "02",
+    index: "03",
     title: ["Other", "Services"],
     headline: "Support beyond the launch",
     cta: "Explore add-ons",
     description: [
-      "From ecommerce builds to ongoing hosting and audits, we extend the life of your digital products with the same precision we bring to every new project.",
+      "From ecommerce builds to ongoing hosting, audits, and product support, we extend the life of your digital products with the same precision we bring to every new project.",
     ],
     highlights: ["Ecommerce", "Hosting", "Audits", "Consultation"],
     features: [
       {
         title: "Ecommerce",
         paragraphs: [
-          "We offer industry-leading, enterprise standard e-commerce systems as part of our website services. Our e-commerce websites are fully bespoke, adapted to work seamlessly with your business model.",
+          "We offer industry-leading, enterprise standard e-commerce systems as part of our services. Our e-commerce solutions are fully bespoke, adapted to work seamlessly with your business model.",
         ],
       },
       {
-        title: "Website Support & Hosting",
+        title: "Hosting & Product Support",
         paragraphs: [
-          "Experience lightning-fast performance with our servers, delivering up to five times faster Time To First Byte than traditional shared hosting services.",
+          "Experience lightning-fast performance with our servers, delivering up to five times faster Time To First Byte than traditional shared hosting services, plus ongoing support for your live product.",
         ],
       },
       {
         title: "Website Audit and Consultation",
         paragraphs: [
-          "Our team carry out a thorough review of your website to determine both its strengths and areas that could use polish, with actionable steps to improve your site.",
+          "Our team carry out a thorough review of your website or product to determine both its strengths and areas that could use polish, with actionable steps to improve it.",
         ],
       },
     ],

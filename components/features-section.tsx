@@ -22,7 +22,7 @@ const features = [
     id: "fully-accredited",
     title: "Performance Driven",
     description:
-      "Fast, responsive, and reliable by default. We build digital products engineered for accessibility, scalability, and measurable business outcomes.",
+      "Fast, scalable, and reliable by default. We engineer SaaS products built for accessibility, uptime, and measurable business outcomes.",
     image: "/images/features/performance-driven.svg",
     imageAlt: "Dashboard style graphic representing performance metrics",
   },
@@ -30,7 +30,7 @@ const features = [
     id: "fully-bespoke",
     title: "Fully Bespoke",
     description:
-      "No templates and no shortcuts. Every layout, interaction, and component is custom-crafted around your goals, users, and brand voice.",
+      "No templates and no shortcuts. Every architecture, feature, and workflow is custom-built around your goals, users, and business logic.",
     image: "/images/features/fully-bespoke.svg",
     imageAlt: "Layered design system graphic representing fully bespoke work",
   },
@@ -38,7 +38,7 @@ const features = [
     id: "guaranteed-service",
     title: "Global Reach",
     description:
-      "Built for audiences anywhere. We create culturally aware digital experiences that help brands scale confidently across markets.",
+      "Built for audiences anywhere. We create scalable software solutions that help businesses grow confidently across markets.",
     image: "/images/features/global-reach.svg",
     imageAlt: "Connected world illustration representing global reach",
   },

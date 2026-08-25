@@ -7,29 +7,34 @@ import { SectionLabel } from "@/components/about/section-label";
 
 const faqs = [
   {
-    question: "How long does it take to build a website?",
+    question: "How long does it take to build a website or software product?",
     answer:
-      "A simple brochure-style website might take 4–6 weeks, while a more complex site could take 8–12 weeks or more. The timeline depends on the size, complexity, and specific features you require.",
+      "A simple brochure-style website might take 4–6 weeks, while a custom SaaS product or web application can take 8–16 weeks or more depending on scope. We'll give you a realistic timeline after understanding your requirements.",
   },
   {
-    question: "What is the cost of a web design project?",
+    question: "What is the cost of a project?",
     answer:
-      "Our pricing depends on your project requirements, with flexible payments made in phases. Contact us for a free consultation and we'll provide a tailored quote based on your goals.",
+      "Our pricing depends on your project requirements, with flexible payments made in phases. Contact us for a free consultation and we'll provide a tailored quote based on your goals — whether it's a website, web app, or full SaaS platform.",
   },
   {
-    question: "Will I retain full ownership of the design, development, and code?",
+    question: "Will I retain full ownership of the design, code, and product?",
     answer:
-      "Yes. Once the project is complete and full payment has been made, all website designs and files are delivered to you with full ownership transferred.",
+      "Yes. Once the project is complete and full payment has been made, all designs, source code, and product files are delivered to you with full ownership transferred.",
   },
   {
-    question: "Will the website be mobile-friendly and responsive?",
+    question: "Will the product be mobile-friendly and scalable?",
     answer:
-      "Absolutely. We design and develop mobile-first, ensuring your site works flawlessly across every device and screen size.",
+      "Absolutely. We design and build mobile-first, and architect every product to scale — whether that means more users, more data, or more features down the line.",
+  },
+  {
+    question: "Do you offer support after launch?",
+    answer:
+      "Yes. We offer post-launch support and maintenance packages to keep your product running smoothly, along with ongoing feature development as your business grows.",
   },
   {
     question: "Do you work with international clients?",
     answer:
-      "Yes. While we're based in Nigeria, we serve clients globally. Geography is no barrier to excellence — we collaborate remotely with businesses worldwide.",
+      "Yes. While we're based in Nigeria, we serve clients globally. Geography is no barrier to excellence — we collaborate remotely with businesses and startups worldwide.",
   },
 ];
 

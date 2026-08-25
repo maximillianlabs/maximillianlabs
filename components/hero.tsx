@@ -19,9 +19,9 @@ export function Hero() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.95] tracking-[-0.03em] text-[#0a0a0a]"
           >
-            <span className="text-brand-gradient">Digital Legacies</span>
+            <span className="text-brand-gradient">Digital Products</span>
             <br />
-            <span style={{ fontWeight: 300 }}>Web Design Agency</span>
+            <span style={{ fontWeight: 300 }}>SaaS Development Company</span>
           </motion.h1>
 
           <motion.p
@@ -30,15 +30,16 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.08 }}
             className="mx-auto mt-8 max-w-[46rem] text-base leading-relaxed text-[#0a0a0a]/80"
           >
-            We&apos;re Maximillian Labs — a Nigeria-based web design agency,
-            focused on creating bespoke and interactive{" "}
+            We&apos;re Maximillian Labs — a Nigeria-based software development
+            company, building bespoke{" "}
             <Link
               href="/about"
               className="font-normal text-[#0a0a0a] underline decoration-[#00ffff]/50 underline-offset-2"
             >
-              web experiences
+              SaaS solutions
             </Link>{" "}
-            for aspiring &amp; established businesses worldwide.
+            and web experiences for aspiring &amp; established businesses
+            worldwide.
           </motion.p>
 
           <motion.div

@@ -10,17 +10,18 @@ const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Maximillian Labs | Web Design Agency",
+    default: "Maximillian Labs | Software Development Company",
     template: "%s | Maximillian Labs",
   },
   description:
-    "Nigerian web design agency creating bespoke, high-performance digital experiences for businesses worldwide.",
+    "Nigerian software development company building bespoke SaaS products, websites, and high-performance digital experiences for businesses worldwide.",
   keywords: [
-    "web design agency",
-    "Nigerian web design",
-    "UI UX design",
-    "digital agency",
+    "software development company",
+    "SaaS development",
+    "Nigerian software company",
     "web development",
+    "UI UX design",
+    "product engineering",
   ],
   authors: [{ name: "Maximillian Labs" }],
   creator: "Maximillian Labs",
@@ -32,16 +33,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_NG",
     url: "/",
-    title: "Maximillian Labs | Web Design Agency",
+    title: "Maximillian Labs | Software Development Company",
     description:
-      "Bespoke web design and digital experiences built from Nigeria for a global clientele.",
+      "Bespoke SaaS products and digital experiences built from Nigeria for a global clientele.",
     siteName: "Maximillian Labs",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maximillian Labs | Web Design Agency",
+    title: "Maximillian Labs | Software Development Company",
     description:
-      "Bespoke web design and digital experiences built for growth-focused brands worldwide.",
+      "Bespoke SaaS products and digital experiences built for growth-focused brands worldwide.",
   },
   robots: {
     index: true,
@@ -55,16 +56,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      {
-        url: "/icons/icon-black.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icons/icon-white.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-    ],
+    icon: "/icons/icon-black.png",
+    shortcut: "/icons/icon-black.png",
     apple: "/icons/icon-black.png",
   },
 };
