@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Maximillian Labs",
     short_name: "Max Labs",
     description:
-      "Nigerian web design agency building bespoke digital experiences for clients worldwide.",
+      "Nigerian software development company building bespoke SaaS products and digital experiences for clients worldwide.",
     start_url: "/",
     display: "standalone",
     background_color: "#f0f0f0",
